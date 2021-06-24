@@ -119,6 +119,14 @@ class UploadFragment : Fragment() {
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item_movie_year, movie_years.reversed())
         (ti_movie_year.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
+
+        val movie_types = mutableListOf<String>()
+        movie_types.add("New")
+        movie_types.add("Slide")
+
+        val adapter_movie_type = ArrayAdapter(requireContext(), R.layout.list_item_movie_year, movie_types)
+        (tl_movie_type.editText as? AutoCompleteTextView)?.setAdapter(adapter_movie_type)
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
