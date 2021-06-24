@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.nkr.mashpro.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:label="@string/movies"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_moviePlayerFragment"
@@ -42,5 +42,5 @@
     <fragment
         android:id="@+id/uploadFragment"
         android:name="com.nkr.mashpro.ui.upload.UploadFragment"
-        android:label="UploadFragment" />
+        android:label="Upload" />
 </navigation>

@@ -6,6 +6,7 @@ import com.nkr.mashpro.repo.IRepoDataSource
 import com.nkr.mashpro.repo.MashProRepository
 import com.nkr.mashpro.repo.remote.IRemoteDataSource
 import com.nkr.mashpro.ui.authentication.AuthenticationViewModel
+import com.nkr.mashpro.ui.home.HomeViewModel
 import com.nkr.mashpro.ui.upload.UploadViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -25,6 +26,14 @@ class App : Application() {
          */
         val myModule = module {
             //Declare a ViewModel - be later inject into Fragment with dedicated injector using by viewModel()
+
+            viewModel {
+                HomeViewModel(
+                    this@App,
+                    get() as IRepoDataSource
+                )
+            }
+
             viewModel {
                 AuthenticationViewModel(
                     this@App,

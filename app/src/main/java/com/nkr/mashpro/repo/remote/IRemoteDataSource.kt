@@ -5,6 +5,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import com.nkr.mashpro.model.FirebaseMovie
 import com.nkr.mashpro.model.FirebaseUserInfo
+import com.nkr.mashpro.model.Movie
 import kotlinx.coroutines.flow.Flow
 import com.nkr.mashpro.repo.Result
 
@@ -24,5 +25,8 @@ interface IRemoteDataSource {
     suspend fun uploadVideoInfo(uri:Uri) : Result<String>
     suspend fun uploadMovieThumbImage(uri:Uri) : Result<String>
     suspend fun uploadMovieInfo(movie :FirebaseMovie) : Result<Unit>
+
+    //movie
+    suspend fun fetchMovies():Result<List<Movie>>
 
 }

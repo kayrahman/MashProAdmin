@@ -11,6 +11,7 @@ import com.google.firebase.storage.StorageReference
 import com.nkr.bazarano.service.MyFirebaseMessagingService
 import com.nkr.mashpro.model.FirebaseMovie
 import com.nkr.mashpro.model.FirebaseUserInfo
+import com.nkr.mashpro.model.Movie
 import com.nkr.mashpro.repo.remote.IRemoteDataSource
 import timber.log.Timber
 import com.nkr.mashpro.repo.Result
@@ -214,6 +215,32 @@ class RemoteDataSourceImpl(
                 Result.Error(e)
             }
         }
+    }
+
+    override suspend fun fetchMovies(): Result<List<Movie>> {
+        return withContext(Dispatchers.IO) {
+            try {
+              val task =  awaitTaskResult(
+                    remote.collection(COLLECTION_MOVIES)
+                        .get()
+                )
+
+                getMoviesFromTask(task)
+            } catch (e: Exception) {
+                Result.Error(e)
+            }
+        }
+    }
+
+    private fun getMoviesFromTask(task: QuerySnapshot?): Result<List<Movie>> {
+        val movies = mutableListOf<Movie>()
+        task?.documents?.forEach {
+            val movie = it.toObject(FirebaseMovie::class.java)?.toMovie
+            movie?.uid = it.id
+            movies.add(movie!!)
+        }
+
+      return Result.Success(movies)
     }
 
 

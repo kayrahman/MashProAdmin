@@ -30,6 +30,7 @@ fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
         Timber.i("prod_image_url ${pathToReference(imageUrl)} and ${imageUrl}")
         Glide.with(view.context)
             .load(pathToReference(imageUrl))
+            .placeholder(R.drawable.ic_twotone_photo_24)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(view)
     }

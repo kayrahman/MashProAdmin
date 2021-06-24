@@ -148,6 +148,7 @@ class UploadFragment : BaseFragment() {
                 Timber.i("video_uri : $videoUri")
                 videoUri?.let {
                     viewModel.setVideoUri(it)
+                    viewModel.setFilePath(it.toString())
                 }
 
                /* CropImage.activity(contentURI!!)
@@ -163,6 +164,7 @@ class UploadFragment : BaseFragment() {
                 Timber.i("video_uri : $imageUri")
                 imageUri?.let {
                     viewModel.setImageUri(it)
+
                 }
 
                  CropImage.activity(imageUri!!)
@@ -186,7 +188,7 @@ class UploadFragment : BaseFragment() {
                     .into(binding.ivThumbnail)
 
                 viewModel.setImageUri(resultUri)
-                viewModel.setFilePath(resultUri.toString())
+
                 //  viewModel.handleEvent(UploadEvent.OnCompressMemePhoto(thumb_filePath))
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {

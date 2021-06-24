@@ -2,6 +2,8 @@ package com.nkr.bazaranocustomer.repo.remote
 
 import android.util.Log
 import com.google.android.gms.tasks.Task
+import com.nkr.mashpro.model.FirebaseMovie
+import com.nkr.mashpro.model.Movie
 import java.util.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -37,3 +39,15 @@ internal suspend fun <T> awaitTaskCompletable(task: Task<T>): Unit =
         }
     }
 
+
+
+val FirebaseMovie.toMovie: Movie
+    get() = Movie(
+        uid = "",
+        video_url = this.video_url,
+        img_url = this.img_url,
+        movie_title = this.movie_title,
+        movie_year = this.movie_year,
+        description = this.description,
+        type = this.type
+    )

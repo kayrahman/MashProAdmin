@@ -3,6 +3,7 @@ package com.nkr.mashpro.repo
 import android.net.Uri
 import com.google.firebase.firestore.QuerySnapshot
 import com.nkr.mashpro.model.FirebaseMovie
+import com.nkr.mashpro.model.Movie
 import kotlinx.coroutines.flow.Flow
 
 interface IRepoDataSource {
@@ -16,5 +17,8 @@ interface IRepoDataSource {
     suspend fun uploadVideoInfoToRemote(uri:Uri) : Result<String>
     suspend fun uploadMovieThumbImageToRemote(uri:Uri) : Result<String>
     suspend fun uploadMovieInfoIntoRemote(movie:FirebaseMovie) : Result<Unit>
+
+    //movie
+    suspend fun fetchMoviesFromRemote():Result<List<Movie>>
 
 }
