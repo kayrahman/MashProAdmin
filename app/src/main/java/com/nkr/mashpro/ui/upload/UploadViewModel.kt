@@ -19,7 +19,7 @@ class UploadViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
     val movieYear = MutableLiveData<String>()
     val movieDescription = MutableLiveData<String>()
     val selectedMovieType = MutableLiveData<String>()
-    val movieTypes = mutableListOf<String>()
+
 
     val videoUri = MutableLiveData<Uri>()
     val thumbUri = MutableLiveData<Uri>()
@@ -27,12 +27,6 @@ class UploadViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
     val filePath = MutableLiveData<String>("")
 
     val isUploadSuccessful = SingleLiveEvent<Boolean>()
-
-
-    init {
-        movieTypes.add("Slide")
-        movieTypes.add("New")
-    }
 
 
     fun handleEvent(event: UploadEvent) {
@@ -64,7 +58,7 @@ class UploadViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
                             val type = selectedMovieType.value.toString()
                             val movie_info = FirebaseMovie(
                                 movie_title = title, movie_year = year, description = desc,
-                                type = type
+                                type = type,img_url = thumbnail_response.data,video_url = response.data
                             )
 
                             val upload_movie_response = repo.uploadMovieInfoIntoRemote(movie_info)
@@ -104,16 +98,10 @@ class UploadViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
     }
 
     fun validateMovieInfo(): Boolean {
-        val title = movieTitle.value.toString()
-        val year = movieYear.value.toString()
-        val desc = movieDescription.value.toString()
-        val type = selectedMovieType.value.toString()
-
-        return (title.isNotEmpty() && year.isNotEmpty()
-                && desc.isNotEmpty() && type.isNotEmpty()
+        return (movieTitle.value != null && movieYear.value!=null
+                && movieDescription.value != null && selectedMovieType.value != null
                 && videoUri.value != null && thumbUri.value != null)
 
-        Timber.i("movie_info : title:$title, year : $year, desc : $desc, type:$type")
     }
 
     fun setVideoUri(video_uri: Uri) {

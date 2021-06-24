@@ -21,6 +21,8 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.nkr.bazaranocustomer.base.NavigationCommand
 import com.nkr.mashpro.R
+import com.nkr.mashpro.base.BaseFragment
+import com.nkr.mashpro.base.BaseViewModel
 import com.nkr.mashpro.databinding.UploadFragmentBinding
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -29,9 +31,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.io.File
 
-class UploadFragment : Fragment() {
+class UploadFragment : BaseFragment() {
 
     private val viewModel: UploadViewModel by viewModel()
+
+    override val _viewModel: BaseViewModel
+        get() = viewModel
+
     private lateinit var binding : UploadFragmentBinding
 
     override fun onCreateView(
@@ -128,6 +134,7 @@ class UploadFragment : Fragment() {
         (tl_movie_type.editText as? AutoCompleteTextView)?.setAdapter(adapter_movie_type)
 
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
