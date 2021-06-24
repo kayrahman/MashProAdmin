@@ -82,7 +82,7 @@ class UploadFragment : Fragment() {
         if (allPermissionsGranted()) {
             var galleryIntent = Intent(
                 Intent.ACTION_PICK,
-                MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
             )
 
             startActivityForResult(galleryIntent, REQUEST_PICK_IMAGE_FROM_GALLERY)
@@ -171,6 +171,7 @@ class UploadFragment : Fragment() {
                     .into(binding.ivThumbnail)
 
                 viewModel.setImageUri(resultUri)
+                viewModel.setFilePath(resultUri.toString())
                 //  viewModel.handleEvent(UploadEvent.OnCompressMemePhoto(thumb_filePath))
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {

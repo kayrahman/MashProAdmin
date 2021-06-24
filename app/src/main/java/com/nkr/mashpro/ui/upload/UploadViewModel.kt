@@ -24,7 +24,7 @@ class UploadViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
     val videoUri = MutableLiveData<Uri>()
     val thumbUri = MutableLiveData<Uri>()
 
-    val filePath = MutableLiveData<String>()
+    val filePath = MutableLiveData<String>("")
 
     val isUploadSuccessful = SingleLiveEvent<Boolean>()
 
