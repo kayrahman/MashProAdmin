@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/authenticationFragment">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.nkr.mashpro.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_moviePlayerFragment"
+            app:destination="@id/moviePlayerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.nkr.mashpro.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.nkr.mashpro.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/moviePlayerFragment"
+        android:name="com.nkr.mashpro.ui.moviePlayer.MoviePlayerFragment"
+        android:label="movie_player_fragment"
+        tools:layout="@layout/movie_player_fragment" />
+    <fragment
+        android:id="@+id/authenticationFragment"
+        android:name="com.nkr.mashpro.ui.authentication.AuthenticationFragment"
+        android:label="AuthenticationFragment" >
+        <action
+            android:id="@+id/action_authenticationFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/uploadFragment"
+        android:name="com.nkr.mashpro.ui.upload.UploadFragment"
+        android:label="UploadFragment" />
+</navigation>

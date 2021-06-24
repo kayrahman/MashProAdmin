@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.nkr.mashpro.ui.upload.UploadViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/spaceSmall"
+            >
+
+
+            <ImageView
+                android:id="@+id/iv_movie"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_baseline_video_call_24"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <EditText
+                android:id="@+id/et_movie_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.movieTitle}"
+                android:padding="@dimen/spaceSmall"
+                bind:layout_constraintTop_toBottomOf="@+id/iv_movie"
+                bind:layout_constraintStart_toStartOf="parent"
+                bind:layout_constraintEnd_toEndOf="parent"
+                android:hint="@string/movie_title"
+                android:gravity="start"
+                android:fontFamily="@font/roboto_black"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ti_movie_year"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Movie Year"
+                android:orientation="horizontal"
+                bind:layout_constraintStart_toStartOf="parent"
+                bind:layout_constraintEnd_toEndOf="parent"
+                bind:layout_constraintTop_toBottomOf="@+id/et_movie_title"
+                >
+
+
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_movie_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:text="@={viewModel.movieYear}"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/iv_thumbnail"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_twotone_photo_24"
+                bind:layout_constraintTop_toBottomOf="@+id/ti_movie_year"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_movie_type"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Movie Type"
+                android:orientation="horizontal"
+                bind:layout_constraintStart_toEndOf="@+id/iv_thumbnail"
+                bind:layout_constraintEnd_toEndOf="parent"
+                bind:layout_constraintTop_toBottomOf="@+id/ti_movie_year"
+                >
+
+
+
+                <AutoCompleteTextView
+                    android:id="@+id/filled_exposed_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <EditText
+                android:id="@+id/et_description"
+                android:layout_width="@dimen/space0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/description"
+                android:text="@={viewModel.movieDescription}"
+                bind:layout_constraintTop_toBottomOf="@+id/iv_thumbnail"
+                bind:layout_constraintStart_toStartOf="parent"
+                bind:layout_constraintEnd_toEndOf="parent"
+                />
+
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                bind:layout_constraintTop_toBottomOf="@+id/et_description"
+                bind:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/upload"
+                />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progress_bar"
+                style="@style/Widget.App.CircularProgressIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/space2dp"
+                android:indeterminate="true"
+                android:visibility="@{viewModel.showLoading?View.VISIBLE:View.GONE}"
+                bind:layout_constraintBottom_toBottomOf="parent"
+                bind:layout_constraintEnd_toEndOf="parent"
+                bind:layout_constraintStart_toStartOf="parent"
+                bind:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

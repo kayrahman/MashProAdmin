@@ -1,0 +1,72 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!--default padding & margin related-->
+    <dimen name="space0dp">0dp</dimen>
+    <dimen name="space1dp">1dp</dimen>
+    <dimen name="space2dp">2dp</dimen>
+    <dimen name="space4dp">4dp</dimen>
+    <dimen name="spaceXSmall">5dp</dimen>
+    <dimen name="spaceSmall">10dp</dimen>
+    <dimen name="spaceNormal">15dp</dimen>
+    <dimen name="spaceLarge">20dp</dimen>
+    <dimen name="spaceXLarge">30dp</dimen>
+    <dimen name="spaceXXLarge">40dp</dimen>
+    <dimen name="spaceXXXLarge">80dp</dimen>
+    <dimen name="spaceXXXXLarge">100dp</dimen>
+    <dimen name="negativeSpaceXLarge">-30dp</dimen>
+
+
+    <!--text size related-->
+    <dimen name="xxLargeTextSize">28sp</dimen>
+    <dimen name="xmmLargeTextSize">24sp</dimen>
+    <dimen name="xmLargeTextSize">22sp</dimen>
+    <dimen name="xLargeTextSize">18sp</dimen>
+    <dimen name="largeTextSize">16sp</dimen>
+    <dimen name="normalTextSize">14sp</dimen>
+    <dimen name="smallTextSize">12sp</dimen>
+    <dimen name="XsmallTextSize">10sp</dimen>
+    <dimen name="XXsmallTextSize">8sp</dimen>
+    <dimen name="defaultTabTextSize">10sp</dimen>
+    <dimen name="toolbarTitleTvSize">16sp</dimen>
+    <dimen name="categoryTextSizeLarge">15sp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="defaultIconSizeMLarge">30dp</dimen>
+
+
+    <!--view size related-->
+    <dimen name="defaultLogoSize">100dp</dimen>
+    <dimen name="defaultItemWidth">150dp</dimen>
+    <dimen name="defaultItemHeight">200dp</dimen>
+    <dimen name="smallIconSize">16dp</dimen>
+    <dimen name="defaultIconSize">25dp</dimen>
+    <dimen name="defaultIconSizeXXLarge">80dp</dimen>
+    <dimen name="defaultIconSizeXmLarge">60dp</dimen>
+    <dimen name="defaultIconSizeXLarge">50dp</dimen>
+    <dimen name="defaultIconSizeLarge">32dp</dimen>
+    <dimen name="defaultTabIconSize">25dp</dimen>
+    <dimen name="defaultBtnHeight">40dp</dimen>
+    <dimen name="defaultEtHeight">45dp</dimen>
+    <dimen name="defaultRadiusXSmall">5dp</dimen>
+    <dimen name="defaultRadiusXLarge">30dp</dimen>
+    <dimen name="defaultRadiusSmall">10dp</dimen>
+    <dimen name="defaultRadiusLarge">20dp</dimen>
+    <dimen name="bottomTabHeight">50dp</dimen>
+    <dimen name="defaultAboveTabHeight">45dp</dimen>
+    <dimen name="radiusSmall">10dp</dimen>
+
+
+
+    <dimen name="drawable_icon_size">16dp</dimen>
+    <dimen name="image_width">100dp</dimen>
+    <dimen name="border_width">2dp</dimen>
+    <dimen name="dashboard_nav_menu_icon_size">50dp</dimen>
+
+
+</resources>

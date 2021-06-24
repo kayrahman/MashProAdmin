@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "279154747204",
+    "project_id": "mashpro-e4cc0",
+    "storage_bucket": "mashpro-e4cc0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:279154747204:android:c23e9363d9afd7adc49911",
+        "android_client_info": {
+          "package_name": "com.nkr.mashpro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "279154747204-v8f9rhs4vf45rej9bsi4b7bvrouu0ugl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXpmiaF-yOGCuamCs3U9skgeqUTQbAig4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "279154747204-v8f9rhs4vf45rej9bsi4b7bvrouu0ugl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
