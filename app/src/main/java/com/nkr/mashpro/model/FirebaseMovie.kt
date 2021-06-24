@@ -11,7 +11,8 @@ data class FirebaseMovie(
     val img_url: String = "",
     val movie_title: String = "",
     val movie_year: String = "",
-    val description: String = ""
+    val description: String = "",
+    val type : String =""
 
 )
 

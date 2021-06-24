@@ -9,10 +9,12 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.nkr.bazarano.service.MyFirebaseMessagingService
+import com.nkr.mashpro.model.FirebaseMovie
 import com.nkr.mashpro.model.FirebaseUserInfo
 import com.nkr.mashpro.repo.remote.IRemoteDataSource
 import timber.log.Timber
 import com.nkr.mashpro.repo.Result
+import com.nkr.mashpro.util.COLLECTION_MOVIES
 import com.nkr.mashpro.util.COLLECTION_USERS
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -151,7 +153,9 @@ class RemoteDataSourceImpl(
                 img_url = firebaseUser?.photoUrl.toString()
             )
             awaitTaskCompletable(
-                remote.collection(COLLECTION_USERS).document(user_uid).set(
+                remote.collection(COLLECTION_USERS)
+                    .document(user_uid)
+                    .set(
                     user
                 )
             )
@@ -180,6 +184,34 @@ class RemoteDataSourceImpl(
                 Result.Success(ref.path)
             } catch (exception: Exception) {
                Result.Error(exception)
+            }
+        }
+    }
+
+    override suspend fun uploadMovieThumbImage(uri: Uri): Result<String> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val user_uid = getActiveUser()
+                val unique_file_name = user_uid + System.currentTimeMillis()
+                val ref = storageReference.child("movie_thumb_image/$unique_file_name")
+                val upload_task = awaitTaskResult(ref.putFile(uri))
+                Result.Success(ref.path)
+            } catch (exception: Exception) {
+                Result.Error(exception)
+            }
+        }
+    }
+
+    override suspend fun uploadMovieInfo(movie: FirebaseMovie): Result<Unit> {
+        return withContext(Dispatchers.IO) {
+            try {
+                awaitTaskCompletable(
+                    remote.collection(COLLECTION_MOVIES)
+                        .add(movie)
+                )
+                Result.Success(Unit)
+            } catch (e: Exception) {
+                Result.Error(e)
             }
         }
     }

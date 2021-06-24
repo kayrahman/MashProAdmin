@@ -16,7 +16,10 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.nkr.bazaranocustomer.base.NavigationCommand
 import com.nkr.mashpro.R
 import com.nkr.mashpro.databinding.UploadFragmentBinding
 import com.theartofdev.edmodo.cropper.CropImage
@@ -45,9 +48,19 @@ class UploadFragment : Fragment() {
         binding.lifecycleOwner = this
 
         setupListener()
+        observeViewModel()
 
         populateMovieYearNTypeDropDown()
 
+    }
+
+    private fun observeViewModel() {
+        viewModel.isUploadSuccessful.observe(viewLifecycleOwner, Observer {
+            if(it){
+                //go to movie list screen
+                viewModel.navigationCommand.value = NavigationCommand.BackTo(R.id.navigation_home)
+            }
+        })
     }
 
     private fun setupListener() {

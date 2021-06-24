@@ -2,7 +2,8 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/tools"
+    >
 
     <data>
         <import type="android.view.View"/>
@@ -33,13 +34,24 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 />
 
+            <TextView
+                android:id="@+id/tv_file_path"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                bind:layout_constraintTop_toBottomOf="@+id/iv_movie"
+                bind:layout_constraintStart_toStartOf="parent"
+                bind:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="@dimen/spaceSmall"
+                />
+
+
             <EditText
                 android:id="@+id/et_movie_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@={viewModel.movieTitle}"
                 android:padding="@dimen/spaceSmall"
-                bind:layout_constraintTop_toBottomOf="@+id/iv_movie"
+                bind:layout_constraintTop_toBottomOf="@+id/tv_file_path"
                 bind:layout_constraintStart_toStartOf="parent"
                 bind:layout_constraintEnd_toEndOf="parent"
                 android:hint="@string/movie_title"
