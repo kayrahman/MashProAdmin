@@ -7,6 +7,7 @@ import com.nkr.mashpro.repo.MashProRepository
 import com.nkr.mashpro.repo.remote.IRemoteDataSource
 import com.nkr.mashpro.ui.authentication.AuthenticationViewModel
 import com.nkr.mashpro.ui.home.HomeViewModel
+import com.nkr.mashpro.ui.moviePlayer.MoviePlayerViewModel
 import com.nkr.mashpro.ui.upload.UploadViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -48,8 +49,15 @@ class App : Application() {
                 )
             }
 
+            viewModel {
+                MoviePlayerViewModel(
+                    this@App,
+                    get() as IRepoDataSource
+                )
+            }
 
-          //  single { MyFirebaseMessagingService(get() as IRepoDataSource) }
+
+            //  single { MyFirebaseMessagingService(get() as IRepoDataSource) }
            // single { SharedPrefsHelper(this@App) }
             single { MashProRepository(get() as IRemoteDataSource) as IRepoDataSource }
             single { RemoteDataSourceImpl() as IRemoteDataSource }

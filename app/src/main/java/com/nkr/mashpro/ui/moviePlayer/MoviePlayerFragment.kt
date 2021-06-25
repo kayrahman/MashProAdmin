@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.google.android.exoplayer2.MediaItem
@@ -19,16 +20,25 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
+import com.nkr.bazaranocustomer.util.GridSpacingItemDecoration
 import com.nkr.bazaranocustomer.util.StorageUtil
 import com.nkr.mashpro.R
+import com.nkr.mashpro.base.BaseFragment
+import com.nkr.mashpro.base.BaseViewModel
 import com.nkr.mashpro.databinding.MoviePlayerFragmentBinding
 import com.nkr.mashpro.model.Movie
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
-class MoviePlayerFragment : Fragment() {
+class MoviePlayerFragment : BaseFragment() {
 
     private lateinit var binding: MoviePlayerFragmentBinding
-    private lateinit var viewModel: MoviePlayerViewModel
+    private val viewModel: MoviePlayerViewModel by viewModel()
+
+    override val _viewModel: BaseViewModel
+        get() = viewModel
+
 
     private val safeArgs : MoviePlayerFragmentArgs by navArgs()
 
@@ -42,6 +52,8 @@ class MoviePlayerFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         movie = safeArgs.movie
+
+        viewModel.setCurrentMovie(movie)
     }
 
     override fun onCreateView(
@@ -54,10 +66,17 @@ class MoviePlayerFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MoviePlayerViewModel::class.java)
-        // TODO: Use the ViewModel
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+        viewModel.handleEvent(MoviePlayerEvent.OnFetchMovies)
 
-
+        binding.rvMovies.adapter = viewModel.adapter
+        val spacing = 10 // 50px
+        val includeEdge = false
+       // binding.rvMovies.addItemDecoration(GridSpacingItemDecoration(3, spacing, includeEdge))
+        viewModel.movieList.observe(viewLifecycleOwner, Observer {
+            viewModel.adapter.submitList(it)
+        })
     }
 
 
@@ -65,10 +84,7 @@ class MoviePlayerFragment : Fragment() {
         player = SimpleExoPlayer.Builder(requireContext()).build()
         binding.videoView.player = player
 
-        val video_file_loc = "https://firebasestorage.googleapis.com/v0/b/mashpro-e4cc0.appspot.com/o/video_movie%2F7REe2OGCsgeyT7MBsycAQVMTUIi21624605832912?alt=media&token=be7f3dc1-0d2e-4255-8c50-6ab07cae18da"
-        //val mediaItem: MediaItem = MediaItem.fromUri(getString(R.string.media_url_mp3))
-        val video_uri = StorageUtil.pathToReference(movie.video_url)
-        val mediaItem: MediaItem = MediaItem.fromUri(video_file_loc)
+        val mediaItem: MediaItem = MediaItem.fromUri(movie.video_url)
 
         player.setMediaItem(mediaItem)
 

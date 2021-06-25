@@ -185,7 +185,7 @@ class RemoteDataSourceImpl(
               val uri_task =  awaitTaskResultForVideoUri(ref.downloadUrl)
 
 
-                Result.Success(ref.path)
+                Result.Success(uri_task.toString())
             } catch (exception: Exception) {
                Result.Error(exception)
             }
