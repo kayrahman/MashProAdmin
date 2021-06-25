@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.nkr.mashpro.model.FirebaseMovie
 import com.nkr.mashpro.model.Movie
+import timber.log.Timber
 import java.util.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -38,6 +39,15 @@ internal suspend fun <T> awaitTaskCompletable(task: Task<T>): Unit =
             }
         }
     }
+
+
+
+internal suspend fun <T> awaitTaskResultForVideoUri(task: Task<T>): T = suspendCoroutine { continuation ->
+    task.addOnSuccessListener { task ->
+        Timber.i("video_uri : $task")
+        continuation.resume(task)
+    }
+}
 
 
 

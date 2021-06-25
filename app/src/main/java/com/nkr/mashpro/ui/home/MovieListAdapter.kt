@@ -22,8 +22,12 @@ class MovieListAdapter : ListAdapter<Movie,MovieListAdapter.HomeItemViewHolder>(
     }
 
     override fun onBindViewHolder(holder: HomeItemViewHolder, position: Int) {
-        val product = getItem(position)
-        holder.bind(product)
+        val movie = getItem(position)
+        holder.bind(movie)
+
+        holder.binding.ivThumbnail.setOnClickListener {
+            listener.onMovieItemClicked(movie)
+        }
 
     }
 
@@ -47,10 +51,9 @@ class MovieListAdapter : ListAdapter<Movie,MovieListAdapter.HomeItemViewHolder>(
     }
 
 
-
-    lateinit var  listener : ProductItemClickListener
-    class ProductItemClickListener(val listener: (String) -> Unit) {
-        fun onProductItemClicked(product_uid:String) = listener(product_uid)
+    lateinit var  listener : MovieItemClickListener
+    class MovieItemClickListener(val listener: (Movie) -> Unit) {
+        fun onMovieItemClicked(movie : Movie) = listener(movie)
 
     }
 

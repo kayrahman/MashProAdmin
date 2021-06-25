@@ -182,6 +182,9 @@ class RemoteDataSourceImpl(
                 val unique_file_name = user_uid + System.currentTimeMillis()
                 val ref = storageReference.child("video_movie/$unique_file_name")
                 val upload_task = awaitTaskResult(ref.putFile(uri))
+              val uri_task =  awaitTaskResultForVideoUri(ref.downloadUrl)
+
+
                 Result.Success(ref.path)
             } catch (exception: Exception) {
                Result.Error(exception)

@@ -11,13 +11,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.nkr.bazaranocustomer.base.NavigationCommand
 import com.nkr.bazaranocustomer.util.GridSpacingItemDecoration
 import com.nkr.mashpro.R
+import com.nkr.mashpro.base.BaseFragment
+import com.nkr.mashpro.base.BaseViewModel
 import com.nkr.mashpro.databinding.FragmentHomeBinding
 import timber.log.Timber
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
     private val homeViewModel: HomeViewModel by viewModel()
     private var _binding: FragmentHomeBinding? = null
@@ -25,6 +28,8 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    override val _viewModel: BaseViewModel
+        get() = homeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,8 +69,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupListener() {
-        homeViewModel.adapter.listener = MovieListAdapter.ProductItemClickListener{
-
+        homeViewModel.adapter.listener = MovieListAdapter.MovieItemClickListener{
+            // go to movie player
+            val actionMoviePlayer = HomeFragmentDirections.actionNavigationHomeToMoviePlayerFragment(it)
+            homeViewModel.navigationCommand.value = NavigationCommand.To(actionMoviePlayer)
         }
     }
 

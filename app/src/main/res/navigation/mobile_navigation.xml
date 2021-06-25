@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_home_to_moviePlayerFragment"
             app:destination="@id/moviePlayerFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_moviePlayerFragment2"
+            app:destination="@id/moviePlayerFragment" />
     </fragment>
 
     <fragment
@@ -30,7 +33,11 @@
         android:id="@+id/moviePlayerFragment"
         android:name="com.nkr.mashpro.ui.moviePlayer.MoviePlayerFragment"
         android:label="movie_player_fragment"
-        tools:layout="@layout/movie_player_fragment" />
+        tools:layout="@layout/movie_player_fragment" >
+        <argument
+            android:name="movie"
+            app:argType="com.nkr.mashpro.model.Movie" />
+    </fragment>
     <fragment
         android:id="@+id/authenticationFragment"
         android:name="com.nkr.mashpro.ui.authentication.AuthenticationFragment"
