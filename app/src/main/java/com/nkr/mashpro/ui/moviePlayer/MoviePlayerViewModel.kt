@@ -21,17 +21,19 @@ class MoviePlayerViewModel(app: Application, val repo : IRepoDataSource) : BaseV
     fun handleEvent(event : MoviePlayerEvent){
         when(event){
             is MoviePlayerEvent.OnFetchMovies ->  fetchMovies()
-            is MoviePlayerEvent.OnDownloadMovie -> downloadMovies(event.download_url)
+            is MoviePlayerEvent.OnDownloadMovie -> downloadMovies(event.movie)
         }
     }
 
-    private fun downloadMovies(downloadUrl: String) = viewModelScope.launch {
-        val download_response = repo.downloadMovieFromRemote(downloadUrl)
+    private fun downloadMovies(movie: Movie) = viewModelScope.launch {
+        val download_response = repo.downloadMovieFromRemote(movie)
         when(download_response){
             is Result.Success ->{
+                showSnackBar.value = "Movie downloaded"
                 Timber.i("download_status : Success")
             }
             is Result.Error ->{
+                showSnackBar.value = "Movie download error"
                 Timber.i("download_status : Error ${download_response.exception.toString()}")
             }
         }

@@ -18,7 +18,7 @@ interface IRepoDataSource {
 
     //movie
     suspend fun fetchMoviesFromRemote():Result<List<Movie>>
-    suspend fun downloadMovieFromRemote(downloadUrl:String) : Result<Unit>
+    suspend fun downloadMovieFromRemote(movie : Movie) : Result<Unit>
 
 
     //------------LOCAL-----------------//

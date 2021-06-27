@@ -14,5 +14,6 @@ data class MovieDTO(
     val movie_title: String,
     val movie_year: String,
     val description: String,
-    val type : String
+    val type : String,
+    val download_uri : String
 )

@@ -14,7 +14,7 @@
         android:title="@string/title_upload" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/downloadsFragment"
         android:icon="@drawable/ic_baseline_arrow_downward_24"
         android:title="@string/title_downloads" />
 

@@ -75,7 +75,7 @@ class MoviePlayerFragment : BaseFragment() {
         }
 
         binding.ivDownload.setOnClickListener {
-            viewModel.handleEvent(MoviePlayerEvent.OnDownloadMovie(movie.video_url))
+            viewModel.handleEvent(MoviePlayerEvent.OnDownloadMovie(movie))
         }
 
     }

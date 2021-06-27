@@ -9,6 +9,7 @@ import com.nkr.mashpro.repo.local.LocalDataSourceImpl
 import com.nkr.mashpro.repo.local.MashProLocalDatabase
 import com.nkr.mashpro.repo.remote.IRemoteDataSource
 import com.nkr.mashpro.ui.authentication.AuthenticationViewModel
+import com.nkr.mashpro.ui.downloads.DownloadsViewModel
 import com.nkr.mashpro.ui.home.HomeViewModel
 import com.nkr.mashpro.ui.moviePlayer.MoviePlayerViewModel
 import com.nkr.mashpro.ui.upload.UploadViewModel
@@ -54,6 +55,13 @@ class App : Application() {
 
             viewModel {
                 MoviePlayerViewModel(
+                    this@App,
+                    get() as IRepoDataSource
+                )
+            }
+
+            viewModel {
+                DownloadsViewModel(
                     this@App,
                     get() as IRepoDataSource
                 )

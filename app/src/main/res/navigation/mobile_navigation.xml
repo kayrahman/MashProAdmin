@@ -50,4 +50,9 @@
         android:id="@+id/uploadFragment"
         android:name="com.nkr.mashpro.ui.upload.UploadFragment"
         android:label="Upload" />
+    <fragment
+        android:id="@+id/downloadsFragment"
+        android:name="com.nkr.mashpro.ui.downloads.DownloadsFragment"
+        android:label="Downloads"
+        tools:layout="@layout/downloads_fragment" />
 </navigation>

@@ -19,7 +19,7 @@ class DownloadsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel
+        viewModel.handleEvent(DownloadEvent.OnFetchDownloadedVideos)
     }
 
     override fun onCreateView(
