@@ -5,15 +5,12 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.nkr.mashpro.model.FirebaseMovie
 import com.nkr.mashpro.model.Movie
 import com.nkr.mashpro.model.MovieLocationInfo
+import com.nkr.mashpro.repo.local.model.MovieDTO
 import kotlinx.coroutines.flow.Flow
 
 interface IRepoDataSource {
 
     //-------------------REMOTE-------------------------//
-
-
-    //------------------ENDING NOTIFICAITON------------------//
-
     suspend fun setupUserInRemote(): Result<Unit>
     suspend fun uploadVideoInfoToRemote(uri:Uri) : Result<MovieLocationInfo>
     suspend fun uploadMovieThumbImageToRemote(uri:Uri) : Result<String>
@@ -22,5 +19,11 @@ interface IRepoDataSource {
     //movie
     suspend fun fetchMoviesFromRemote():Result<List<Movie>>
     suspend fun downloadMovieFromRemote(downloadUrl:String) : Result<Unit>
+
+
+    //------------LOCAL-----------------//
+    suspend fun insertMoviesIntoLocalDb(movie: MovieDTO) : Result<Unit>
+    suspend fun getDownloadedMoviesFromLocalDb() : Result<List<Movie>>
+
 
 }

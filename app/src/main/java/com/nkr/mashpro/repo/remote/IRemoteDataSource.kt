@@ -29,6 +29,6 @@ interface IRemoteDataSource {
 
     //movie
     suspend fun fetchMovies():Result<List<Movie>>
-    suspend fun downloadMovieToLocalFile(downloadUrl:String) : Result<Unit>
+    suspend fun downloadMovieToLocalFile(movie : String) : Result<String>
 
 }

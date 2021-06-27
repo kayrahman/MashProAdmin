@@ -4,6 +4,9 @@ import android.app.Application
 import com.nkr.bazaranocustomer.repo.remote.RemoteDataSourceImpl
 import com.nkr.mashpro.repo.IRepoDataSource
 import com.nkr.mashpro.repo.MashProRepository
+import com.nkr.mashpro.repo.local.ILocalDataSource
+import com.nkr.mashpro.repo.local.LocalDataSourceImpl
+import com.nkr.mashpro.repo.local.MashProLocalDatabase
 import com.nkr.mashpro.repo.remote.IRemoteDataSource
 import com.nkr.mashpro.ui.authentication.AuthenticationViewModel
 import com.nkr.mashpro.ui.home.HomeViewModel
@@ -59,11 +62,11 @@ class App : Application() {
 
             //  single { MyFirebaseMessagingService(get() as IRepoDataSource) }
            // single { SharedPrefsHelper(this@App) }
-            single { MashProRepository(get() as IRemoteDataSource) as IRepoDataSource }
+            single { MashProRepository(get() as IRemoteDataSource,get() as ILocalDataSource) as IRepoDataSource }
             single { RemoteDataSourceImpl() as IRemoteDataSource }
-           // single { LocalDataSourceImpl(get()) as ILocalDataSource }
-          //  single { BazarAnoLocalDatabase.getInstance(this@App).productDao }
-            // single { RemindersLocalRepository(get())}
+            single { LocalDataSourceImpl(get()) as ILocalDataSource }
+            single { MashProLocalDatabase.getInstance(this@App).movieDao }
+            // single { MashProRepository(get())}
         }
 
         startKoin {

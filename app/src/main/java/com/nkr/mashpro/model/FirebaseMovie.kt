@@ -21,6 +21,7 @@ data class FirebaseMovie(
 data class Movie(
     var uid: String,
     val video_url: String,
+    val video_ref:String,
     val img_url: String,
     val movie_title: String,
     val movie_year: String,

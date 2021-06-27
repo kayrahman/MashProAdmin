@@ -237,8 +237,8 @@ class RemoteDataSourceImpl(
         }
     }
 
-    override suspend fun downloadMovieToLocalFile(downloadUrl: String): Result<Unit> {
-        Timber.i("downloadUri : ${downloadUrl.toString()}")
+    override suspend fun downloadMovieToLocalFile(movie : String): Result<String> {
+      //  Timber.i("downloadUri : ${downloadUrl.toString()}")
         val localFile = File.createTempFile("MashupPro", "mp4")
         return withContext(Dispatchers.IO) {
             try {
@@ -246,14 +246,18 @@ class RemoteDataSourceImpl(
                 val demo_video_ref =
                     StorageUtil.pathToReference("/video_movie/UqG0bPSdCNU0jqwzNsFbNWN0Ebk21624700078870")
 
-                demo_video_ref.getFile(localFile).addOnSuccessListener {
+                awaitTaskCompletable(demo_video_ref.getFile(localFile))
+                val uri = Uri.fromFile(localFile)
+
+               /* demo_video_ref.getFile(localFile).addOnSuccessListener {
                     val uri = Uri.fromFile(localFile)
+                    //insert movie info into local url
                     Timber.i("video_download_uri : ${uri.toString()}")
                 }.addOnFailureListener {
                     Timber.i("video_download_uri : ${it.toString()}")
-                }
+                }*/
 
-                Result.Success(Unit)
+                Result.Success(uri.toString())
 
             } catch (e: Exception) {
                 Result.Error(e)

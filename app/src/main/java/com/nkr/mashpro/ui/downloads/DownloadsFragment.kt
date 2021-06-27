@@ -16,6 +16,12 @@ class DownloadsFragment : Fragment() {
     private val viewModel: DownloadsViewModel by viewModel()
     private lateinit var binding: DownloadsFragmentBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,7 +32,13 @@ class DownloadsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
+        setupAdapter()
+    }
+
+    private fun setupAdapter() {
 
     }
 
