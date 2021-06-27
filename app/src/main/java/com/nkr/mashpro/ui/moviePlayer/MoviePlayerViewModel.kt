@@ -16,10 +16,24 @@ class MoviePlayerViewModel(app: Application, val repo : IRepoDataSource) : BaseV
     val adapter = MovieListHorizontalAdapter()
     val movieList = MutableLiveData<List<Movie>>()
     val currentMovie = MutableLiveData<Movie>()
+    val showPoster = MutableLiveData<Boolean>()
 
     fun handleEvent(event : MoviePlayerEvent){
         when(event){
             is MoviePlayerEvent.OnFetchMovies ->  fetchMovies()
+            is MoviePlayerEvent.OnDownloadMovie -> downloadMovies(event.download_url)
+        }
+    }
+
+    private fun downloadMovies(downloadUrl: String) = viewModelScope.launch {
+        val download_response = repo.downloadMovieFromRemote(downloadUrl)
+        when(download_response){
+            is Result.Success ->{
+                Timber.i("download_status : Success")
+            }
+            is Result.Error ->{
+                Timber.i("download_status : Error ${download_response.exception.toString()}")
+            }
         }
     }
 

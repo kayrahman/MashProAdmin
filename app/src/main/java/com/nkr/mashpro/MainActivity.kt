@@ -16,6 +16,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+       // actionBar?.setLogo(R.drawable.mashpro_logo_copy)
+      //  supportActionBar?.setLogo(R.drawable.mashpro_logo_copy)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

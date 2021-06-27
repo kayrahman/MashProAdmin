@@ -56,9 +56,11 @@ class UploadViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
                             val year = movieYear.value.toString()
                             val desc = movieDescription.value.toString()
                             val type = selectedMovieType.value.toString()
+
                             val movie_info = FirebaseMovie(
                                 movie_title = title, movie_year = year, description = desc,
-                                type = type,img_url = thumbnail_response.data,video_url = response.data
+                                type = type,img_url = thumbnail_response.data,video_url = response.data.video_url,
+                                video_ref = response.data.video_ref
                             )
 
                             val upload_movie_response = repo.uploadMovieInfoIntoRemote(movie_info)
@@ -72,7 +74,6 @@ class UploadViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
                                     showLoading.value = false
                                 }
                             }
-
                         }
 
                         is Result.Error -> {
@@ -80,10 +81,6 @@ class UploadViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
                             showLoading.value = false
                         }
                     }
-
-
-
-
                     Timber.i("video_uri_upload : success - ${response.data}")
 
                 }

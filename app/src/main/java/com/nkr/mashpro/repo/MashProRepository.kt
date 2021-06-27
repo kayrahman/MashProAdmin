@@ -3,6 +3,7 @@ package com.nkr.mashpro.repo
 import android.net.Uri
 import com.nkr.mashpro.model.FirebaseMovie
 import com.nkr.mashpro.model.Movie
+import com.nkr.mashpro.model.MovieLocationInfo
 import com.nkr.mashpro.repo.remote.IRemoteDataSource
 
 class MashProRepository(val remote: IRemoteDataSource) : IRepoDataSource {
@@ -11,7 +12,7 @@ class MashProRepository(val remote: IRemoteDataSource) : IRepoDataSource {
         return remote.setupUserInRemote()
     }
 
-    override suspend fun uploadVideoInfoToRemote(uri: Uri): Result<String> {
+    override suspend fun uploadVideoInfoToRemote(uri: Uri): Result<MovieLocationInfo> {
         return remote.uploadVideoInfo(uri)
     }
 
@@ -25,5 +26,9 @@ class MashProRepository(val remote: IRemoteDataSource) : IRepoDataSource {
 
     override suspend fun fetchMoviesFromRemote(): Result<List<Movie>> {
         return remote.fetchMovies()
+    }
+
+    override suspend fun downloadMovieFromRemote(downloadUrl: String): Result<Unit> {
+        return remote.downloadMovieToLocalFile(downloadUrl)
     }
 }

@@ -9,9 +9,11 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.nkr.bazarano.service.MyFirebaseMessagingService
+import com.nkr.bazaranocustomer.util.StorageUtil
 import com.nkr.mashpro.model.FirebaseMovie
 import com.nkr.mashpro.model.FirebaseUserInfo
 import com.nkr.mashpro.model.Movie
+import com.nkr.mashpro.model.MovieLocationInfo
 import com.nkr.mashpro.repo.remote.IRemoteDataSource
 import timber.log.Timber
 import com.nkr.mashpro.repo.Result
@@ -19,6 +21,7 @@ import com.nkr.mashpro.util.COLLECTION_MOVIES
 import com.nkr.mashpro.util.COLLECTION_USERS
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -143,7 +146,6 @@ class RemoteDataSourceImpl(
     }
 
 
-
     suspend fun insertUserIntoRemote(user_uid: String): Result<FirebaseUserInfo> {
         val firebaseUser = auth.currentUser
         return try {
@@ -157,8 +159,8 @@ class RemoteDataSourceImpl(
                 remote.collection(COLLECTION_USERS)
                     .document(user_uid)
                     .set(
-                    user
-                )
+                        user
+                    )
             )
 
             Result.Success(user)
@@ -175,19 +177,19 @@ class RemoteDataSourceImpl(
     private val storageReference: StorageReference
         get() = storageInstance.reference
 
-    override suspend fun uploadVideoInfo(uri: Uri): Result<String> {
+    override suspend fun uploadVideoInfo(uri: Uri): Result<MovieLocationInfo> {
         return withContext(Dispatchers.IO) {
             try {
                 val user_uid = getActiveUser()
                 val unique_file_name = user_uid + System.currentTimeMillis()
                 val ref = storageReference.child("video_movie/$unique_file_name")
                 val upload_task = awaitTaskResult(ref.putFile(uri))
-              val uri_task =  awaitTaskResultForVideoUri(ref.downloadUrl)
-
-
-                Result.Success(uri_task.toString())
+                val uri_task = awaitTaskResultForVideoUri(ref.downloadUrl)
+                Timber.i("upload_uri ${ref.path}")
+                val movie_loc = MovieLocationInfo(video_url = uri_task.toString(),video_ref = ref.path)
+                Result.Success(movie_loc)
             } catch (exception: Exception) {
-               Result.Error(exception)
+                Result.Error(exception)
             }
         }
     }
@@ -223,12 +225,36 @@ class RemoteDataSourceImpl(
     override suspend fun fetchMovies(): Result<List<Movie>> {
         return withContext(Dispatchers.IO) {
             try {
-              val task =  awaitTaskResult(
+                val task = awaitTaskResult(
                     remote.collection(COLLECTION_MOVIES)
                         .get()
                 )
 
                 getMoviesFromTask(task)
+            } catch (e: Exception) {
+                Result.Error(e)
+            }
+        }
+    }
+
+    override suspend fun downloadMovieToLocalFile(downloadUrl: String): Result<Unit> {
+        Timber.i("downloadUri : ${downloadUrl.toString()}")
+        val localFile = File.createTempFile("MashupPro", "mp4")
+        return withContext(Dispatchers.IO) {
+            try {
+                //  val demo_video_ref = storageReference.child("video_movie/7REe2OGCsgeyT7MBsycAQVMTUIi21624513261237.mp4")
+                val demo_video_ref =
+                    StorageUtil.pathToReference("/video_movie/UqG0bPSdCNU0jqwzNsFbNWN0Ebk21624700078870")
+
+                demo_video_ref.getFile(localFile).addOnSuccessListener {
+                    val uri = Uri.fromFile(localFile)
+                    Timber.i("video_download_uri : ${uri.toString()}")
+                }.addOnFailureListener {
+                    Timber.i("video_download_uri : ${it.toString()}")
+                }
+
+                Result.Success(Unit)
+
             } catch (e: Exception) {
                 Result.Error(e)
             }
@@ -243,7 +269,7 @@ class RemoteDataSourceImpl(
             movies.add(movie!!)
         }
 
-      return Result.Success(movies)
+        return Result.Success(movies)
     }
 
 

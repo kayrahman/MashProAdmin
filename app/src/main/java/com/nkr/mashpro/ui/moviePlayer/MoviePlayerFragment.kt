@@ -1,28 +1,17 @@
 package com.nkr.mashpro.ui.moviePlayer
 
 import android.annotation.SuppressLint
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
-import com.google.android.exoplayer2.extractor.ExtractorsFactory
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
-import com.nkr.bazaranocustomer.util.GridSpacingItemDecoration
-import com.nkr.bazaranocustomer.util.StorageUtil
-import com.nkr.mashpro.R
 import com.nkr.mashpro.base.BaseFragment
 import com.nkr.mashpro.base.BaseViewModel
 import com.nkr.mashpro.databinding.MoviePlayerFragmentBinding
@@ -40,14 +29,14 @@ class MoviePlayerFragment : BaseFragment() {
         get() = viewModel
 
 
-    private val safeArgs : MoviePlayerFragmentArgs by navArgs()
+    private val safeArgs: MoviePlayerFragmentArgs by navArgs()
 
     private lateinit var player: SimpleExoPlayer
     private var playWhenReady = true
     private var currentWindow = 0
     private var playbackPosition: Long = 0
 
-    private lateinit var movie : Movie
+    private lateinit var movie: Movie
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,10 +62,22 @@ class MoviePlayerFragment : BaseFragment() {
         binding.rvMovies.adapter = viewModel.adapter
         val spacing = 10 // 50px
         val includeEdge = false
-       // binding.rvMovies.addItemDecoration(GridSpacingItemDecoration(3, spacing, includeEdge))
+        // binding.rvMovies.addItemDecoration(GridSpacingItemDecoration(3, spacing, includeEdge))
         viewModel.movieList.observe(viewLifecycleOwner, Observer {
             viewModel.adapter.submitList(it)
         })
+
+        //adapter setup listener
+        viewModel.adapter.listener = MovieListHorizontalAdapter.MovieItemClickListener {
+            movie = it
+            viewModel.setCurrentMovie(it)
+            initializePlayer()
+        }
+
+        binding.ivDownload.setOnClickListener {
+            viewModel.handleEvent(MoviePlayerEvent.OnDownloadMovie(movie.video_url))
+        }
+
     }
 
 
@@ -84,64 +85,31 @@ class MoviePlayerFragment : BaseFragment() {
         player = SimpleExoPlayer.Builder(requireContext()).build()
         binding.videoView.player = player
 
+       // val file_loc = "file:///data/user/0/com.nkr.mashpro/cache/MashupPro2336716059174186187mp4"
         val mediaItem: MediaItem = MediaItem.fromUri(movie.video_url)
 
         player.setMediaItem(mediaItem)
-
-        player.playWhenReady = playWhenReady;
+       // player.playWhenReady = playWhenReady
         player.seekTo(currentWindow, playbackPosition)
         player.prepare()
 
+
     }
 
 
+    private class PlaybackStateListener : Player.EventListener {
+        override fun onPlaybackStateChanged(playbackState: Int) {
+            val stateString: String
+            stateString = when (playbackState) {
+                ExoPlayer.STATE_IDLE -> "ExoPlayer.STATE_IDLE      -"
+                ExoPlayer.STATE_BUFFERING -> "ExoPlayer.STATE_BUFFERING -"
+                ExoPlayer.STATE_READY -> "ExoPlayer.STATE_READY     -"
+                ExoPlayer.STATE_ENDED -> "ExoPlayer.STATE_ENDED     -"
+                else -> "UNKNOWN_STATE             -"
+            }
 
-/*
-
-    private fun initializeExoPlayerView(video_url:String){
-        try {
-            // bandwidthmeter is used for getting default bandwidth
-            val bandwidthMeter =  DefaultBandwidthMeter();
-            // track selector is used to navigate between video using a default seeker.
-            val trackSelector =  DefaultTrackSelector( AdaptiveTrackSelection.Factory(bandwidthMeter));
-
-            // we are adding our track selector to exoplayer.
-           val exoPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
-
-            // we are parsing a video url and
-            // parsing its video uri.
-            val videouri = Uri.parse(video_url);
-
-            // we are creating a variable for data source
-            // factory and setting its user agent as 'exoplayer_view'
-            val dataSourceFactory =  DefaultHttpDataSourceFactory("exoplayer_video");
-
-            // we are creating a variable for extractor
-            // factory and setting it to default extractor factory.
-            val extractorsFactory =  DefaultExtractorsFactory();
-
-            // we are creating a media source with above variables
-            // and passing our event handler as null,
-            val mediaSource =  ExtractorMediaSource(videouri, dataSourceFactory, extractorsFactory, null, null);
-
-            // inside our exoplayer view
-            // we are setting our player
-             exoPlayerView.setPlayer(exoPlayer);
-
-            // we are preparing our exoplayer
-            // with media source.
-            exoPlayer.prepare(mediaSource);
-
-            // we are setting our exoplayer
-            // when it is ready.
-            exoPlayer.setPlayWhenReady(true);
-        } catch (Exception e) {
-            // below line is used for handling our errors.
-           // Log.e("TAG", "Error : " + e.toString());
         }
     }
-
-*/
 
 
     override fun onStart() {
@@ -191,7 +159,7 @@ class MoviePlayerFragment : BaseFragment() {
             currentWindow = player.currentWindowIndex
             player.stop()
             player.release()
-          //  player = null
+            //  player = null
         }
 
     }

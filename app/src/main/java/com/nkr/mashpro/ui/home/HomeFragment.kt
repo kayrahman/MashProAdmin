@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -30,6 +31,7 @@ class HomeFragment : BaseFragment() {
     private val binding get() = _binding!!
     override val _viewModel: BaseViewModel
         get() = homeViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -14,7 +14,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
-        <item name="actionBarStyle">@style/Custom.ActionBar</item>
+       <item name="actionBarStyle">@style/Custom.ActionBar</item>
         <item name="android:colorBackground">@color/black</item>
         <item name="colorSurface">@color/black_800</item>
         <item name="colorError">@color/red_200</item>
@@ -32,6 +32,7 @@
 
     <style name="Custom.ActionBar" parent="Widget.MaterialComponents.Light.ActionBar.Solid">
         <item name="background">@color/colorDark</item>
+
     </style>
 
 
