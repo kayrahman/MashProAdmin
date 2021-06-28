@@ -2,4 +2,4 @@
 A native android app like youtube initially..post your video and win awards.
 
 
- <a href="https://graduation.udacity.com/confirm/PGHSDXKD">YouTube Demo</a><br>
+ <a href="https://youtu.be/WpJSE94XQ3g">YouTube Demo</a><br>
