@@ -10,3 +10,6 @@ const val TAG_OUTPUT = "OUTPUT"
 
 const val COLLECTION_MOVIES = "movies"
 const val COLLECTION_USERS = "users"
+
+const val USER_SUBSCRIPTION_TYPE_MONTHLY = "MONTHLY"
+const val USER_SUBSCRIPTION_TYPE_FREE = "FREE"

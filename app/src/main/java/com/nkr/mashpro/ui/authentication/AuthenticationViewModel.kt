@@ -23,10 +23,29 @@ class AuthenticationViewModel(app:Application,val repo:IRepoDataSource) : BaseVi
         val response = repo.setupUserInRemote()
         when(response){
             is Result.Success -> {
-                showLoading.value = false
 
-                val actionHome = AuthenticationFragmentDirections.actionAuthenticationFragmentToNavigationHome()
-                navigationCommand.value = NavigationCommand.To(actionHome)
+                val user_response = repo.getUserInfoFromRemote()
+                when(user_response){
+                    is Result.Success -> {
+                        showLoading.value = false
+                        val user = user_response.data
+                        if(user.subscription_plan.isNotEmpty()){
+                            val actionHome = AuthenticationFragmentDirections.actionAuthenticationFragmentToNavigationHome()
+                            navigationCommand.value = NavigationCommand.To(actionHome)
+
+                        }else{
+
+                            val actionChoosePlan = AuthenticationFragmentDirections.actionAuthenticationFragmentToUserTypeFragment()
+                            navigationCommand.value = NavigationCommand.To(actionChoosePlan)
+                        }
+                    }
+
+                    is Result.Error ->{
+
+                    }
+                }
+
+
 
                 Timber.i("setup_user : success")
             }

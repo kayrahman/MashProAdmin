@@ -20,6 +20,7 @@ interface IRemoteDataSource {
 
     //------------------ USER ------------------------------//
     suspend fun setupUserInRemote() : Result<Unit>
+    suspend fun updateUserSubscriptionPlan(sub_plan : String) : Result<Unit>
     suspend fun getUserInfo() : Result<FirebaseUserInfo>
 
     //upload
@@ -31,4 +32,15 @@ interface IRemoteDataSource {
     suspend fun fetchMovies():Result<List<Movie>>
     suspend fun downloadMovieToLocalFile(movie : String) : Result<String>
 
+    //
+
 }
+
+
+
+
+
+
+
+
+

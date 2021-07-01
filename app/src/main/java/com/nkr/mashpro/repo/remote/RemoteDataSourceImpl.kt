@@ -127,6 +127,24 @@ class RemoteDataSourceImpl(
 
     }
 
+    override suspend fun updateUserSubscriptionPlan(sub_plan: String): Result<Unit> {
+       val map = HashMap<String,Any>()
+        map["subscription_plan"] = sub_plan
+
+        return try {
+            awaitTaskCompletable(
+                remote.collection(COLLECTION_USERS)
+                    .document(getActiveUser())
+                    .update(map)
+            )
+            Result.Success(Unit)
+
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+
+    }
+
     override suspend fun getUserInfo(): Result<FirebaseUserInfo> {
         return try {
             val task = awaitTaskResult(

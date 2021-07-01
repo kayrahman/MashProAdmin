@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_authenticationFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_authenticationFragment_to_userTypeFragment"
+            app:destination="@id/userTypeFragment" />
     </fragment>
     <fragment
         android:id="@+id/uploadFragment"
@@ -55,4 +58,13 @@
         android:name="com.nkr.mashpro.ui.downloads.DownloadsFragment"
         android:label="Downloads"
         tools:layout="@layout/downloads_fragment" />
+    <fragment
+        android:id="@+id/userTypeFragment"
+        android:name="com.nkr.mashpro.ui.userCredential.UserSubscriptionPlanFragment"
+        android:label="user_type_fragment"
+        tools:layout="@layout/user_type_fragment" >
+        <action
+            android:id="@+id/action_userTypeFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 </navigation>

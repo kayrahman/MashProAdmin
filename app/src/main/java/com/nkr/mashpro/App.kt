@@ -13,6 +13,8 @@ import com.nkr.mashpro.ui.downloads.DownloadsViewModel
 import com.nkr.mashpro.ui.home.HomeViewModel
 import com.nkr.mashpro.ui.moviePlayer.MoviePlayerViewModel
 import com.nkr.mashpro.ui.upload.UploadViewModel
+import com.nkr.mashpro.ui.userCredential.UserSubscriptionPlanFragment
+import com.nkr.mashpro.ui.userCredential.UserSubscriptionPlanViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -62,6 +64,13 @@ class App : Application() {
 
             viewModel {
                 DownloadsViewModel(
+                    this@App,
+                    get() as IRepoDataSource
+                )
+            }
+
+            viewModel {
+                UserSubscriptionPlanViewModel(
                     this@App,
                     get() as IRepoDataSource
                 )

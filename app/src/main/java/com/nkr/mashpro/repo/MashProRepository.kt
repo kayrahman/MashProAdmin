@@ -3,6 +3,7 @@ package com.nkr.mashpro.repo
 import android.net.Uri
 import com.nkr.bazaranocustomer.repo.remote.toMovieDTO
 import com.nkr.mashpro.model.FirebaseMovie
+import com.nkr.mashpro.model.FirebaseUserInfo
 import com.nkr.mashpro.model.Movie
 import com.nkr.mashpro.model.MovieLocationInfo
 import com.nkr.mashpro.repo.local.ILocalDataSource
@@ -19,6 +20,14 @@ class MashProRepository(
 
     override suspend fun setupUserInRemote(): Result<Unit> {
         return remote.setupUserInRemote()
+    }
+
+    override suspend fun getUserInfoFromRemote(): Result<FirebaseUserInfo> {
+        return remote.getUserInfo()
+    }
+
+    override suspend fun updateUserSubscriptionPlanToRemote(sub_plan: String): Result<Unit> {
+        return remote.updateUserSubscriptionPlan(sub_plan)
     }
 
     override suspend fun uploadVideoInfoToRemote(uri: Uri): Result<MovieLocationInfo> {

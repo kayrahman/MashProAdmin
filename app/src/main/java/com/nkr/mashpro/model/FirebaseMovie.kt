@@ -36,6 +36,7 @@ data class FirebaseUserInfo(
     val user_name: String = "",
     val email: String = "",
     val img_url: String = "",
+    val subscription_plan:String = "",
     val registration_tokens: ArrayList<String> = arrayListOf<String>()
 ) : Parcelable
 
