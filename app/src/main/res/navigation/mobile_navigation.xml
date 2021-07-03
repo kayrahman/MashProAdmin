@@ -67,4 +67,8 @@
             android:id="@+id/action_userTypeFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
     </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.nkr.mashpro.ui.search.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>

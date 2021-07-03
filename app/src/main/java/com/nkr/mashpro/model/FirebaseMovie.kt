@@ -1,6 +1,7 @@
 package com.nkr.mashpro.model
 
 import android.os.Parcelable
+import com.nkr.mashpro.base.BaseListAdapter
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 import kotlin.collections.ArrayList
@@ -45,3 +46,26 @@ data class MovieLocationInfo(
     val video_url: String,
     val video_ref: String
 )
+
+
+
+data class Keyword(
+    val product_uid: String = "",
+    val keyword: String = "", override var listener: BaseListAdapter.AdapterListener?
+) : BaseListAdapter.ListItemViewModel()
+
+
+
+data class FirebaseKeyword(
+    val product_uid: String = "",
+    val keyword: String = ""
+)
+
+
+internal fun FirebaseKeyword.toKeyword() : Keyword{
+    return Keyword(
+        this.product_uid,
+        this.keyword,
+        null
+    )
+}

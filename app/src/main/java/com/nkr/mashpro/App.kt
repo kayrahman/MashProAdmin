@@ -1,17 +1,18 @@
 package com.nkr.mashpro
 
 import android.app.Application
-import com.nkr.bazaranocustomer.repo.remote.RemoteDataSourceImpl
 import com.nkr.mashpro.repo.IRepoDataSource
 import com.nkr.mashpro.repo.MashProRepository
 import com.nkr.mashpro.repo.local.ILocalDataSource
 import com.nkr.mashpro.repo.local.LocalDataSourceImpl
 import com.nkr.mashpro.repo.local.MashProLocalDatabase
 import com.nkr.mashpro.repo.remote.IRemoteDataSource
+import com.nkr.mashpro.repo.remote.RemoteDataSourceImpl
 import com.nkr.mashpro.ui.authentication.AuthenticationViewModel
 import com.nkr.mashpro.ui.downloads.DownloadsViewModel
 import com.nkr.mashpro.ui.home.HomeViewModel
 import com.nkr.mashpro.ui.moviePlayer.MoviePlayerViewModel
+import com.nkr.mashpro.ui.search.SearchViewModel
 import com.nkr.mashpro.ui.upload.UploadViewModel
 import com.nkr.mashpro.ui.userCredential.UserSubscriptionPlanFragment
 import com.nkr.mashpro.ui.userCredential.UserSubscriptionPlanViewModel
@@ -71,6 +72,13 @@ class App : Application() {
 
             viewModel {
                 UserSubscriptionPlanViewModel(
+                    this@App,
+                    get() as IRepoDataSource
+                )
+            }
+
+            viewModel {
+                SearchViewModel(
                     this@App,
                     get() as IRepoDataSource
                 )

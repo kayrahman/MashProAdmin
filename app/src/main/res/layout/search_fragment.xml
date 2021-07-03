@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.nkr.mashpro.ui.search.SearchViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/spaceNormal"
+            >
+
+            <LinearLayout
+                android:id="@+id/no_search_result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{viewModel.showNoData? View.VISIBLE:View.GONE}"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spaceSmall"
+                    android:text="@{@string/serach_no_result(viewModel.searchQuery)}"
+                    android:textSize="@dimen/largeTextSize"
+                    android:fontFamily="@font/poppins_bold"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spaceXSmall"
+                    android:text="@string/serach_no_sub_result"
+                    android:textSize="@dimen/smallTextSize"
+                    android:fontFamily="@font/poppins_bold"
+                    android:layout_margin="@dimen/spaceSmall"
+                    />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/rv_saved_searches"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="@{viewModel.isSearchTypeRemoteKeywords? View.GONE:View.VISIBLE }"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Saved searches"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textSize="@dimen/normalTextSize"
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_clear_all_saved_searches"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="Clear All"
+                        android:textAlignment="viewEnd"
+                        android:textColor="@color/color_dark_yellow"
+                        android:textSize="@dimen/smallTextSize"
+                        android:visibility="@{viewModel.isSavedSearchEmpty()? View.VISIBLE:View.GONE }" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No Saved searches"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="@dimen/smallTextSize"
+                    android:layout_marginTop="@dimen/spaceXLarge"
+                    android:visibility="@{viewModel.isSavedSearchEmpty ? View.GONE:View.VISIBLE}"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    bindingAdapter="@{viewModel.isSearchTypeRemoteKeywords? viewModel.keywordAdapter :viewModel.searchWordsAdapter}"
+                    showDefaultDividerLine="@{true}"
+                    defaultRvLayout="@{true}"
+                    android:overScrollMode="never"
+                    android:layout_marginTop="@dimen/space4dp"
+                    android:visibility="@{viewModel.isSearched()? View.GONE:View.VISIBLE}"
+                    />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                android:overScrollMode="never"
+                android:layout_marginTop="@dimen/spaceNormal"
+                app:spanCount="2"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

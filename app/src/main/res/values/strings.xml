@@ -17,6 +17,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_payment_options">Choose payment method</string>
+    <string name="serach_no_sub_result">\n\n-Check if the spelling is correct\n-Use different keywords\n-Try general keywords</string>
+    <string name="serach_no_result">Your search \"%s\" did not match any listing. Try another search?</string>
+    <string name="search_demo_text">Organic</string>
+    <string name="title_search">Search</string>
+    <string name="search_title">Search</string>
 
 
 </resources>

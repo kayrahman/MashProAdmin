@@ -1,4 +1,4 @@
-package com.nkr.bazaranocustomer.repo.remote
+package com.nkr.mashpro.repo.remote
 
 import android.net.Uri
 import android.util.Log
@@ -9,6 +9,10 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.nkr.bazarano.service.MyFirebaseMessagingService
+import com.nkr.bazaranocustomer.repo.remote.awaitTaskCompletable
+import com.nkr.bazaranocustomer.repo.remote.awaitTaskResult
+import com.nkr.bazaranocustomer.repo.remote.awaitTaskResultForVideoUri
+import com.nkr.bazaranocustomer.repo.remote.toMovie
 import com.nkr.bazaranocustomer.util.StorageUtil
 import com.nkr.mashpro.model.FirebaseMovie
 import com.nkr.mashpro.model.FirebaseUserInfo
@@ -19,6 +23,7 @@ import timber.log.Timber
 import com.nkr.mashpro.repo.Result
 import com.nkr.mashpro.util.COLLECTION_MOVIES
 import com.nkr.mashpro.util.COLLECTION_USERS
+import com.nkr.mashpro.util.NODE_MOVIE_TITLE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -128,7 +133,7 @@ class RemoteDataSourceImpl(
     }
 
     override suspend fun updateUserSubscriptionPlan(sub_plan: String): Result<Unit> {
-       val map = HashMap<String,Any>()
+        val map = HashMap<String, Any>()
         map["subscription_plan"] = sub_plan
 
         return try {
@@ -204,7 +209,8 @@ class RemoteDataSourceImpl(
                 val upload_task = awaitTaskResult(ref.putFile(uri))
                 val uri_task = awaitTaskResultForVideoUri(ref.downloadUrl)
                 Timber.i("upload_uri ${ref.path}")
-                val movie_loc = MovieLocationInfo(video_url = uri_task.toString(),video_ref = ref.path)
+                val movie_loc =
+                    MovieLocationInfo(video_url = uri_task.toString(), video_ref = ref.path)
                 Result.Success(movie_loc)
             } catch (exception: Exception) {
                 Result.Error(exception)
@@ -255,8 +261,8 @@ class RemoteDataSourceImpl(
         }
     }
 
-    override suspend fun downloadMovieToLocalFile(movie : String): Result<String> {
-      //  Timber.i("downloadUri : ${downloadUrl.toString()}")
+    override suspend fun downloadMovieToLocalFile(movie: String): Result<String> {
+        //  Timber.i("downloadUri : ${downloadUrl.toString()}")
         val localFile = File.createTempFile("MashupPro", "mp4")
         return withContext(Dispatchers.IO) {
             try {
@@ -267,19 +273,35 @@ class RemoteDataSourceImpl(
                 awaitTaskCompletable(demo_video_ref.getFile(localFile))
                 val uri = Uri.fromFile(localFile)
 
-               /* demo_video_ref.getFile(localFile).addOnSuccessListener {
-                    val uri = Uri.fromFile(localFile)
-                    //insert movie info into local url
-                    Timber.i("video_download_uri : ${uri.toString()}")
-                }.addOnFailureListener {
-                    Timber.i("video_download_uri : ${it.toString()}")
-                }*/
+                /* demo_video_ref.getFile(localFile).addOnSuccessListener {
+                     val uri = Uri.fromFile(localFile)
+                     //insert movie info into local url
+                     Timber.i("video_download_uri : ${uri.toString()}")
+                 }.addOnFailureListener {
+                     Timber.i("video_download_uri : ${it.toString()}")
+                 }*/
 
                 Result.Success(uri.toString())
 
             } catch (e: Exception) {
                 Result.Error(e)
             }
+        }
+    }
+
+    override suspend fun fetchMoviesBySearch(queryString: String): Result<List<Movie>> {
+        return try {
+            val task_query_title = awaitTaskResult(
+                remote.collection(COLLECTION_MOVIES)
+                    .whereGreaterThanOrEqualTo(NODE_MOVIE_TITLE, queryString.toLowerCase())
+                    .whereLessThan(NODE_MOVIE_TITLE, queryString + 'z')
+                    .get()
+            )
+
+          getMoviesFromTask(task_query_title)
+
+        } catch (e: Exception) {
+            Result.Error(e)
         }
     }
 

@@ -79,6 +79,10 @@ class MashProRepository(
         }
     }
 
+    override suspend fun fetchProductsBySearch(queryString: String): Result<List<Movie>> {
+      return remote.fetchMoviesBySearch(queryString)
+    }
+
 
     //-----------------LOCAL-----------------------//
     override suspend fun insertMoviesIntoLocalDb(movie: MovieDTO): Result<Unit> {

@@ -25,10 +25,15 @@ interface IRepoDataSource {
     suspend fun fetchMoviesFromRemote():Result<List<Movie>>
     suspend fun downloadMovieFromRemote(movie : Movie) : Result<Unit>
 
+    //search
+    //-------------------------------search--------------------//
+    suspend fun fetchProductsBySearch(queryString: String): Result<List<Movie>>
+
 
     //------------LOCAL-----------------//
     suspend fun insertMoviesIntoLocalDb(movie: MovieDTO) : Result<Unit>
     suspend fun getDownloadedMoviesFromLocalDb() : Result<List<Movie>>
+
 
 
 }
