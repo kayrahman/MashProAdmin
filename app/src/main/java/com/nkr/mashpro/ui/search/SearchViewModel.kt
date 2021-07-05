@@ -12,19 +12,21 @@ import com.nkr.mashpro.R
 import com.nkr.mashpro.base.BaseListAdapter
 import com.nkr.mashpro.base.BaseViewModel
 import com.nkr.mashpro.model.Keyword
+import com.nkr.mashpro.model.Movie
 import com.nkr.mashpro.repo.IRepoDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import com.nkr.mashpro.repo.Result
+import com.nkr.mashpro.ui.home.MovieListAdapter
 import kotlinx.coroutines.launch
 
 
 class SearchViewModel(app: Application, val repo: IRepoDataSource) : BaseViewModel(app) {
 
 
-  //  val adapter = HotProductListAdapter()
+    val movieList = MutableLiveData<List<Movie>>()
     val isItemFound = MutableLiveData<Boolean>(false)
     val searchQuery = MutableLiveData<String>()
     var searchWords = MutableLiveData<List<SearchedWord>>()
@@ -122,6 +124,10 @@ class SearchViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
         val search_resposne = repo.fetchProductsBySearch(queryString)
         when (search_resposne) {
             is Result.Success -> {
+                search_resposne.data.let {
+                    movieList.value = it
+                }
+
                 Timber.i("search_word_response : Success ${search_resposne.data.toString()}")
             }
             is Result.Error -> {

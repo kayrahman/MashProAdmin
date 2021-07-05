@@ -2,7 +2,7 @@ package com.nkr.bazaranocustomer.repo.remote
 
 import android.util.Log
 import com.google.android.gms.tasks.Task
-import com.nkr.mashpro.model.FirebaseMovie
+import com.nkr.mashpro.model.FirebaseMovieInfo
 import com.nkr.mashpro.model.Movie
 import com.nkr.mashpro.repo.local.model.MovieDTO
 import timber.log.Timber
@@ -51,7 +51,7 @@ internal suspend fun <T> awaitTaskResultForVideoUri(task: Task<T>): T =
     }
 
 
-val FirebaseMovie.toMovie: Movie
+val FirebaseMovieInfo.toMovie: Movie
     get() = Movie(
         uid = "",
         video_url = this.video_url,
@@ -68,7 +68,7 @@ val Movie.toMovieDTO : MovieDTO
 get() = MovieDTO(
     uid = this.uid,
     video_url = this.video_url,
-    video_ref = this.video_ref,
+    video_ref = this.video_ref.toString(),
     img_url = this.img_url,
     movie_title = this.movie_title,
     movie_year = this.movie_year,

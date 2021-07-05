@@ -20,13 +20,13 @@ class UserSubscriptionPlanViewModel(app:Application, val repo : IRepoDataSource)
             is Result.Success ->{
                 when(sub_plan_type){
                     USER_SUBSCRIPTION_TYPE_MONTHLY ->{
+                        goToHomeScreen()
                         showLoading.value = false
                     }
                     USER_SUBSCRIPTION_TYPE_FREE -> {
+                        goToHomeScreen()
                         showLoading.value = false
-                        //go to home screen
-                        val actionHome = UserSubscriptionPlanFragmentDirections.actionUserTypeFragmentToNavigationHome()
-                        navigationCommand.value = NavigationCommand.To(actionHome)
+
                     }
                 }
             }
@@ -34,6 +34,13 @@ class UserSubscriptionPlanViewModel(app:Application, val repo : IRepoDataSource)
                 showLoading.value = false
             }
         }
+    }
+
+
+    fun goToHomeScreen(){
+        //go to home screen
+        val actionHome = UserSubscriptionPlanFragmentDirections.actionUserTypeFragmentToNavigationHome()
+        navigationCommand.value = NavigationCommand.To(actionHome)
     }
 
 }

@@ -14,7 +14,7 @@ import com.nkr.bazaranocustomer.repo.remote.awaitTaskResult
 import com.nkr.bazaranocustomer.repo.remote.awaitTaskResultForVideoUri
 import com.nkr.bazaranocustomer.repo.remote.toMovie
 import com.nkr.bazaranocustomer.util.StorageUtil
-import com.nkr.mashpro.model.FirebaseMovie
+import com.nkr.mashpro.model.FirebaseMovieInfo
 import com.nkr.mashpro.model.FirebaseUserInfo
 import com.nkr.mashpro.model.Movie
 import com.nkr.mashpro.model.MovieLocationInfo
@@ -167,6 +167,41 @@ class RemoteDataSourceImpl(
             Result.Error(e)
         }
     }
+    //-----------------------storage-----------------------//
+    override suspend fun uploadUserThumbImage(uri: Uri): Result<String> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val user_uid = getActiveUser()
+                val unique_file_name = user_uid + System.currentTimeMillis()
+                val ref = storageReference.child("user_thumb_image/$unique_file_name")
+                val upload_task = awaitTaskResult(ref.putFile(uri))
+               Result.Success(ref.path)
+            } catch (exception: Exception) {
+               Result.Error(exception)
+            }
+        }
+    }
+
+    override suspend fun updateImageRef(img_ref: String): Result<Unit> {
+        val img_map = HashMap<String,Any>()
+        img_map["img_url"] = img_ref
+
+        return withContext(Dispatchers.IO) {
+            try {
+                awaitTaskCompletable(
+                    remote.collection(COLLECTION_USERS)
+                        .document(getActiveUser())
+                        .update(img_map)
+                )
+              Result.Success(Unit)
+            } catch (e: Exception) {
+               Result.Error(e)
+            }
+        }
+
+    }
+
+
 
 
     suspend fun insertUserIntoRemote(user_uid: String): Result<FirebaseUserInfo> {
@@ -232,7 +267,8 @@ class RemoteDataSourceImpl(
         }
     }
 
-    override suspend fun uploadMovieInfo(movie: FirebaseMovie): Result<Unit> {
+    override suspend fun uploadMovieInfo(movie: FirebaseMovieInfo): Result<Unit> {
+        Timber.i("movie_upload${movie.toString()}")
         return withContext(Dispatchers.IO) {
             try {
                 awaitTaskCompletable(
@@ -293,7 +329,7 @@ class RemoteDataSourceImpl(
         return try {
             val task_query_title = awaitTaskResult(
                 remote.collection(COLLECTION_MOVIES)
-                    .whereGreaterThanOrEqualTo(NODE_MOVIE_TITLE, queryString.toLowerCase())
+                    .whereGreaterThanOrEqualTo(NODE_MOVIE_TITLE, queryString)
                     .whereLessThan(NODE_MOVIE_TITLE, queryString + 'z')
                     .get()
             )
@@ -308,7 +344,9 @@ class RemoteDataSourceImpl(
     private fun getMoviesFromTask(task: QuerySnapshot?): Result<List<Movie>> {
         val movies = mutableListOf<Movie>()
         task?.documents?.forEach {
-            val movie = it.toObject(FirebaseMovie::class.java)?.toMovie
+            val firebase_movie = it.toObject(FirebaseMovieInfo::class.java)
+            Timber.i("firebase_movie ${firebase_movie?.video_url.toString()}")
+            val movie = firebase_movie?.toMovie
             movie?.uid = it.id
             movies.add(movie!!)
         }

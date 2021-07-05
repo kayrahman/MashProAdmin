@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nkr.bazaranocustomer.util.SingleLiveEvent
 import com.nkr.mashpro.base.BaseViewModel
-import com.nkr.mashpro.model.FirebaseMovie
+import com.nkr.mashpro.model.FirebaseMovieInfo
 import com.nkr.mashpro.repo.IRepoDataSource
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -57,21 +57,27 @@ class UploadViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
                             val desc = movieDescription.value.toString()
                             val type = selectedMovieType.value.toString()
 
-                            val movie_info = FirebaseMovie(
-                                movie_title = title, movie_year = year, description = desc,
-                                type = type,img_url = thumbnail_response.data,video_url = response.data.video_url,
-                                video_ref = response.data.video_ref
-                            )
+                            val movie_info = FirebaseMovieInfo(
+                                response.data.video_url,
+                                response.data.video_ref,
+                                thumbnail_response.data,
+                                title, year, desc,
+                                type,
 
-                            val upload_movie_response = repo.uploadMovieInfoIntoRemote(movie_info)
-                            when (upload_movie_response) {
-                                is Result.Success -> {
-                                    isUploadSuccessful.value = true
-                                    showLoading.value = false
-                                }
-                                is Result.Error -> {
-                                    showSnackBar.value = "Error uploading movie"
-                                    showLoading.value = false
+                                )
+
+                            if (movie_info != null) {
+                                val upload_movie_response =
+                                    repo.uploadMovieInfoIntoRemote(movie_info)
+                                when (upload_movie_response) {
+                                    is Result.Success -> {
+                                        isUploadSuccessful.value = true
+                                        showLoading.value = false
+                                    }
+                                    is Result.Error -> {
+                                        showSnackBar.value = "Error uploading movie"
+                                        showLoading.value = false
+                                    }
                                 }
                             }
                         }

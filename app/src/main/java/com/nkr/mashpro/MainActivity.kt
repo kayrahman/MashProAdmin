@@ -1,15 +1,21 @@
 package com.nkr.mashpro
 
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.nkr.mashpro.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),
+    NavController.OnDestinationChangedListener
+{
 
     private lateinit var binding: ActivityMainBinding
 
@@ -34,5 +40,37 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        lifecycleScope.launchWhenResumed {
+            navController.addOnDestinationChangedListener(
+                this@MainActivity
+            )
+        }
+
     }
+
+    override fun onDestinationChanged(
+        controller: NavController,
+        destination: NavDestination,
+        arguments: Bundle?
+    ) {
+        when (destination.id) {
+            R.id.authenticationFragment, R.id.userTypeFragment -> {
+                binding.navView.visibility = View.GONE
+                if (supportActionBar?.isShowing!!) {
+                    supportActionBar?.hide()
+                }
+
+            }
+
+            R.id.navigation_home -> {
+                binding.navView.visibility = View.VISIBLE
+                if (!supportActionBar?.isShowing!!) {
+                    supportActionBar?.show()
+                }
+
+            }
+        }
+
+        }
 }

@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 import java.util.*
 import kotlin.collections.ArrayList
 
-
+/*
 data class FirebaseMovie(
     val video_url: String = "",
     val video_ref:String = "",
@@ -16,13 +16,13 @@ data class FirebaseMovie(
     val description: String = "",
     val type : String =""
 
-)
+)*/
 
 @Parcelize
 data class Movie(
     var uid: String,
     val video_url: String,
-    val video_ref:String,
+    val video_ref:String?,
     val img_url: String,
     val movie_title: String,
     val movie_year: String,

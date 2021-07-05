@@ -3,7 +3,7 @@ package com.nkr.mashpro.repo.remote
 import android.net.Uri
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
-import com.nkr.mashpro.model.FirebaseMovie
+import com.nkr.mashpro.model.FirebaseMovieInfo
 import com.nkr.mashpro.model.FirebaseUserInfo
 import com.nkr.mashpro.model.Movie
 import com.nkr.mashpro.model.MovieLocationInfo
@@ -23,10 +23,14 @@ interface IRemoteDataSource {
     suspend fun updateUserSubscriptionPlan(sub_plan : String) : Result<Unit>
     suspend fun getUserInfo() : Result<FirebaseUserInfo>
 
+    //storage
+    suspend fun uploadUserThumbImage(uri: Uri) : Result<String>
+    suspend fun updateImageRef(img_ref : String) : Result<Unit>
+
     //upload
     suspend fun uploadVideoInfo(uri:Uri) : Result<MovieLocationInfo>
     suspend fun uploadMovieThumbImage(uri:Uri) : Result<String>
-    suspend fun uploadMovieInfo(movie :FirebaseMovie) : Result<Unit>
+    suspend fun uploadMovieInfo(movie :FirebaseMovieInfo) : Result<Unit>
 
     //movie
     suspend fun fetchMovies():Result<List<Movie>>

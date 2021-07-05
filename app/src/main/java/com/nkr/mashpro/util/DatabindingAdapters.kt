@@ -91,6 +91,8 @@ fun setImageUrl(imageView: ImageView, url: String?) {
 
 
     } catch (e: Exception) {
+        Glide.with(imageView.context).load(R.drawable.ic_baseline_account_circle_24)
+            .into(imageView)
     }
 
 }

@@ -2,7 +2,7 @@ package com.nkr.mashpro.repo
 
 import android.net.Uri
 import com.google.firebase.firestore.QuerySnapshot
-import com.nkr.mashpro.model.FirebaseMovie
+import com.nkr.mashpro.model.FirebaseMovieInfo
 import com.nkr.mashpro.model.FirebaseUserInfo
 import com.nkr.mashpro.model.Movie
 import com.nkr.mashpro.model.MovieLocationInfo
@@ -19,7 +19,7 @@ interface IRepoDataSource {
     //
     suspend fun uploadVideoInfoToRemote(uri:Uri) : Result<MovieLocationInfo>
     suspend fun uploadMovieThumbImageToRemote(uri:Uri) : Result<String>
-    suspend fun uploadMovieInfoIntoRemote(movie:FirebaseMovie) : Result<Unit>
+    suspend fun uploadMovieInfoIntoRemote(movie:FirebaseMovieInfo) : Result<Unit>
 
     //movie
     suspend fun fetchMoviesFromRemote():Result<List<Movie>>
@@ -28,6 +28,10 @@ interface IRepoDataSource {
     //search
     //-------------------------------search--------------------//
     suspend fun fetchProductsBySearch(queryString: String): Result<List<Movie>>
+
+    //storage
+    suspend fun uploadUserThumbImageToRemote(uri:Uri) : Result<String>
+    suspend fun updateRemoteImageRef(image_ref : String) : Result<Unit>
 
 
     //------------LOCAL-----------------//

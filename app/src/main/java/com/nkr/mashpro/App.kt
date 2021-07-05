@@ -8,6 +8,7 @@ import com.nkr.mashpro.repo.local.LocalDataSourceImpl
 import com.nkr.mashpro.repo.local.MashProLocalDatabase
 import com.nkr.mashpro.repo.remote.IRemoteDataSource
 import com.nkr.mashpro.repo.remote.RemoteDataSourceImpl
+import com.nkr.mashpro.ui.account.AccountViewModel
 import com.nkr.mashpro.ui.authentication.AuthenticationViewModel
 import com.nkr.mashpro.ui.downloads.DownloadsViewModel
 import com.nkr.mashpro.ui.home.HomeViewModel
@@ -83,6 +84,14 @@ class App : Application() {
                     get() as IRepoDataSource
                 )
             }
+
+            viewModel {
+                AccountViewModel(
+                    this@App,
+                    get() as IRepoDataSource
+                )
+            }
+
 
 
             //  single { MyFirebaseMessagingService(get() as IRepoDataSource) }

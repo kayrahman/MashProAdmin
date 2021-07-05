@@ -2,7 +2,7 @@ package com.nkr.mashpro.repo
 
 import android.net.Uri
 import com.nkr.bazaranocustomer.repo.remote.toMovieDTO
-import com.nkr.mashpro.model.FirebaseMovie
+import com.nkr.mashpro.model.FirebaseMovieInfo
 import com.nkr.mashpro.model.FirebaseUserInfo
 import com.nkr.mashpro.model.Movie
 import com.nkr.mashpro.model.MovieLocationInfo
@@ -38,7 +38,7 @@ class MashProRepository(
         return remote.uploadMovieThumbImage(uri)
     }
 
-    override suspend fun uploadMovieInfoIntoRemote(movie: FirebaseMovie): Result<Unit> {
+    override suspend fun uploadMovieInfoIntoRemote(movie: FirebaseMovieInfo): Result<Unit> {
         return remote.uploadMovieInfo(movie)
     }
 
@@ -81,6 +81,14 @@ class MashProRepository(
 
     override suspend fun fetchProductsBySearch(queryString: String): Result<List<Movie>> {
       return remote.fetchMoviesBySearch(queryString)
+    }
+
+    override suspend fun uploadUserThumbImageToRemote(uri: Uri): Result<String> {
+        return remote.uploadUserThumbImage(uri)
+    }
+
+    override suspend fun updateRemoteImageRef(image_ref: String): Result<Unit> {
+        return remote.updateImageRef(image_ref)
     }
 
 

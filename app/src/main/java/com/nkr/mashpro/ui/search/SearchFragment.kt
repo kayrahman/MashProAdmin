@@ -10,13 +10,16 @@ import android.widget.EditText
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuItemCompat
+import androidx.lifecycle.Observer
 import com.nkr.bazaranocustomer.repo.local.dto.search.SearchedWord
+import com.nkr.bazaranocustomer.util.GridSpacingItemDecoration
 import com.nkr.mashpro.R
 import com.nkr.mashpro.base.BaseFragment
 import com.nkr.mashpro.base.BaseListAdapter
 import com.nkr.mashpro.base.BaseViewModel
 import com.nkr.mashpro.databinding.SearchFragmentBinding
 import com.nkr.mashpro.model.Keyword
+import com.nkr.mashpro.ui.home.MovieListAdapter
 import timber.log.Timber
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -49,6 +52,18 @@ class SearchFragment : BaseFragment() {
 
 
     private fun setupListener() {
+        val adapter = MovieListAdapter()
+        binding.rvSearch.adapter = adapter
+        val spacing = 10 // 50px
+        val includeEdge = false
+        binding.rvSearch.addItemDecoration(GridSpacingItemDecoration(3, spacing, includeEdge))
+        viewModel.movieList.observe(viewLifecycleOwner, Observer {
+            Timber.i("flow_prod_list:${it.size} ")
+            //populate the adapter here
+            adapter.submitList(it)
+        })
+
+
         //local
         viewModel.searchWordsAdapter.listener = object : BaseListAdapter.AdapterListener{
             override fun onItemClick(item: BaseListAdapter.ListItemViewModel) {
@@ -80,9 +95,6 @@ class SearchFragment : BaseFragment() {
             }
         }
 
-        binding.tvClearAllSavedSearches.setOnClickListener {
-            viewModel.handleEvent(SearchListEvent.OnClearSavedSearches)
-        }
     }
 
 

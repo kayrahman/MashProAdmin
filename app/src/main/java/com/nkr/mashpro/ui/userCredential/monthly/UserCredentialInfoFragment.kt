@@ -10,6 +10,12 @@ import com.nkr.mashpro.base.BaseFragment
 import com.nkr.mashpro.base.BaseViewModel
 import com.nkr.mashpro.databinding.FragmentUserCredentialInfoBinding
 import com.nkr.mashpro.ui.userCredential.UserSubscriptionPlanViewModel
+import com.sslwireless.sslcommerzlibrary.model.initializer.SSLCommerzInitialization
+import com.sslwireless.sslcommerzlibrary.model.response.SSLCTransactionInfoModel
+import com.sslwireless.sslcommerzlibrary.model.util.SSLCCurrencyType
+import com.sslwireless.sslcommerzlibrary.model.util.SSLCSdkType
+import com.sslwireless.sslcommerzlibrary.view.singleton.IntegrateSSLCommerz
+import com.sslwireless.sslcommerzlibrary.viewmodel.listener.SSLCTransactionResponseListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserCredentialInfoFragment : BaseFragment() {
@@ -33,5 +39,9 @@ class UserCredentialInfoFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnPayment.setOnClickListener {
+
+
+        }
     }
 }
