@@ -23,6 +23,9 @@
     <string name="title_search">Search</string>
     <string name="search_title">Search</string>
     <string name="title_account">Account</string>
+    <string name="label_user_type">Are you a</string>
+    <string name="creator">Creator</string>
+    <string name="viewer">Viewer</string>
 
 
 </resources>

@@ -1,6 +1,7 @@
 package com.nkr.mashpro.ui.userCredential
 
 import android.app.Application
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nkr.bazaranocustomer.base.NavigationCommand
@@ -10,8 +11,12 @@ import kotlinx.coroutines.launch
 import com.nkr.mashpro.repo.Result
 import com.nkr.mashpro.util.USER_SUBSCRIPTION_TYPE_FREE
 import com.nkr.mashpro.util.USER_SUBSCRIPTION_TYPE_MONTHLY
+import org.koin.android.ext.android.inject
+import org.koin.android.ext.android.inject
 
 class UserSubscriptionPlanViewModel(app:Application, val repo : IRepoDataSource) : BaseViewModel(app) {
+
+    val user_type = MutableLiveData<Int>(802)
 
     fun updateSubscriptionPlan(sub_plan_type:String) = viewModelScope.launch {
         showLoading.value = true

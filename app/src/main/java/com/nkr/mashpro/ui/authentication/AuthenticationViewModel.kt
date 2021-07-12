@@ -29,14 +29,22 @@ class AuthenticationViewModel(app:Application,val repo:IRepoDataSource) : BaseVi
                     is Result.Success -> {
                         showLoading.value = false
                         val user = user_response.data
-                        if(user.subscription_plan.isNotEmpty()){
-                            val actionHome = AuthenticationFragmentDirections.actionAuthenticationFragmentToNavigationHome()
-                            navigationCommand.value = NavigationCommand.To(actionHome)
+
+                        if(user.user_type != 0) {
+                            if (user.subscription_plan.isNotEmpty()) {
+                                val actionHome =
+                                    AuthenticationFragmentDirections.actionAuthenticationFragmentToNavigationHome()
+                                navigationCommand.value = NavigationCommand.To(actionHome)
+
+                            } else {
+                                val actionChoosePlan =
+                                    AuthenticationFragmentDirections.actionAuthenticationFragmentToUserTypeFragment()
+                                navigationCommand.value = NavigationCommand.To(actionChoosePlan)
+                            }
 
                         }else{
-
-                            val actionChoosePlan = AuthenticationFragmentDirections.actionAuthenticationFragmentToUserTypeFragment()
-                            navigationCommand.value = NavigationCommand.To(actionChoosePlan)
+                            val actionUsertype = AuthenticationFragmentDirections.actionAuthenticationFragmentToUserTypeFragment2()
+                            navigationCommand.value = NavigationCommand.To(actionUsertype)
                         }
                     }
 

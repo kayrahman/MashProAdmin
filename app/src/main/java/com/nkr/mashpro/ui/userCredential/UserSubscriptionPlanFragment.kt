@@ -15,11 +15,12 @@ import com.sslwireless.sslcommerzlibrary.model.util.SSLCCurrencyType
 import com.sslwireless.sslcommerzlibrary.model.util.SSLCSdkType
 import com.sslwireless.sslcommerzlibrary.view.singleton.IntegrateSSLCommerz
 import com.sslwireless.sslcommerzlibrary.viewmodel.listener.SSLCTransactionResponseListener
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserSubscriptionPlanFragment : BaseFragment(), SSLCTransactionResponseListener {
 
-    private val viewModel: UserSubscriptionPlanViewModel by viewModel()
+    private val viewModel: UserSubscriptionPlanViewModel by inject()
     private lateinit var binding: UserTypeFragmentBinding
     override val _viewModel: BaseViewModel
         get() = viewModel

@@ -71,7 +71,7 @@ class App : Application() {
                 )
             }
 
-            viewModel {
+            single {
                 UserSubscriptionPlanViewModel(
                     this@App,
                     get() as IRepoDataSource
