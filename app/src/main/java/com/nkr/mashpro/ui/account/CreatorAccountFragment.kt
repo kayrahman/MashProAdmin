@@ -28,7 +28,6 @@ import com.nkr.mashpro.ui.home.HomeEvent
 import com.nkr.mashpro.ui.home.MovieListAdapter
 import com.nkr.mashpro.ui.userCredential.UserEvent
 import com.nkr.mashpro.ui.userCredential.UserSubscriptionPlanViewModel
-import com.nkr.mashpro.util.USER_TYPE_CREATOR
 import com.nkr.mashpro.util.USER_TYPE_VIEWER
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -37,9 +36,9 @@ import timber.log.Timber
 import java.io.File
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AccountFragment : BaseFragment() {
+class CreatorAccountFragment : BaseFragment() {
 
-    private val dashboardViewModel: UserSubscriptionPlanViewModel by inject()
+    private val viewModel : UserSubscriptionPlanViewModel by inject()
     private lateinit var binding: FragmentDashboardBinding
 
     override fun onCreateView(
@@ -55,17 +54,21 @@ class AccountFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = dashboardViewModel
+        binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        dashboardViewModel.handleEvent(UserEvent.OnFetchMovies)
-        dashboardViewModel.handleEvent(UserEvent.OnFetchUserInfo)
+        viewModel.handleEvent(UserEvent.OnFetchMovies)
+        viewModel.handleEvent(UserEvent.OnFetchUserInfo)
 
         binding.ivUser.setOnClickListener {
             choosePhotoFromGallery()
         }
 
         setupAdapter()
+
+        binding.btnLogout.setOnClickListener {
+            viewModel.setupUserType(USER_TYPE_VIEWER)
+        }
 
     }
 
@@ -75,7 +78,7 @@ class AccountFragment : BaseFragment() {
         val spacing = 10 // 50px
         val includeEdge = false
         binding.rvMovies.addItemDecoration(GridSpacingItemDecoration(3, spacing, includeEdge))
-        dashboardViewModel.movieList.observe(viewLifecycleOwner, Observer {
+        viewModel.movieList.observe(viewLifecycleOwner, Observer {
             Timber.i("flow_prod_list:${it.size} ")
             //populate the adapter here
             adapter.submitList(it)
@@ -83,8 +86,8 @@ class AccountFragment : BaseFragment() {
 
 
         adapter.listener = MovieListAdapter.MovieItemClickListener {
-               val actionMoviePlayer = AccountFragmentDirections.actionNavigationDashboardToMoviePlayerFragment(it)
-                  dashboardViewModel.navigationCommand.value = NavigationCommand.To(actionMoviePlayer)
+               val actionMoviePlayer = CreatorAccountFragmentDirections.actionCreatorAccountFragmentToMoviePlayerFragment2(it)
+            viewModel.navigationCommand.value = NavigationCommand.To(actionMoviePlayer)
 
         }
 
@@ -92,17 +95,18 @@ class AccountFragment : BaseFragment() {
 
     private fun setupListener() {
         binding.btnLogout.setOnClickListener {
-            dashboardViewModel.setupUserType(USER_TYPE_CREATOR)
-          /*  AuthUI.getInstance()
+            AuthUI.getInstance()
                 .signOut(requireContext())
                 .addOnCompleteListener {
                     Toast.makeText(requireContext(),"Singed out",Toast.LENGTH_SHORT).show()
 
-                    val actionToAuthFm = AccountFragmentDirections.actionNavigationDashboardToAuthenticationFragment()
-                    findNavController().navigate(actionToAuthFm)
+                  //  val actionToAuthFm = AccountFragmentDirections.actionNavigationDashboardToAuthenticationFragment()
+                   // findNavController().navigate(actionToAuthFm)
 
-                }*/
+
+                }
         }
+
 
     }
 
@@ -123,7 +127,7 @@ class AccountFragment : BaseFragment() {
     }
 
     override val _viewModel: BaseViewModel
-        get() = dashboardViewModel
+        get() = viewModel
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -155,7 +159,7 @@ class AccountFragment : BaseFragment() {
                          .load(resultUri)
                          .into(binding.ivUser)
      */
-                dashboardViewModel.handleEvent(UserEvent.OnUpdateUserImage(resultUri))
+                viewModel.handleEvent(UserEvent.OnUpdateUserImage(resultUri))
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 val error = result.error

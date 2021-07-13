@@ -9,11 +9,13 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.nkr.mashpro.App;
 import com.nkr.mashpro.R;
 import com.nkr.mashpro.databinding.ActivityMainBinding;
 import com.nkr.mashpro.ui.userCredential.UserSubscriptionPlanViewModel;
@@ -27,6 +29,7 @@ import kotlin.Lazy;
 import timber.log.Timber;
 
 import static androidx.navigation.Navigation.findNavController;
+import static com.nkr.mashpro.App.DEFAULT_PREFERENCES;
 import static com.nkr.mashpro.util.ConstantsKt.USER_TYPE;
 import static com.nkr.mashpro.util.ConstantsKt.USER_TYPE_CREATOR;
 import static com.nkr.mashpro.util.ConstantsKt.USER_TYPE_VIEWER;
@@ -53,8 +56,8 @@ public class MainActivity2 extends AppCompatActivity implements NavController.On
 
         NavController navController = navHostFragment.getNavController();
 
-        viewModel.getValue().getUserType().observe(this, user_type->{
-            if(user_type == USER_TYPE_CREATOR){
+        viewModel.getValue().getUserType().observe(this, user_type -> {
+            if (user_type == USER_TYPE_CREATOR) {
                 navView.getMenu().clear();
                 navView.inflateMenu(R.menu.bottom_nav_creator_menu);
                 navController.setGraph(R.navigation.mobile_navigation_creator);
@@ -62,16 +65,16 @@ public class MainActivity2 extends AppCompatActivity implements NavController.On
                 NavigationUI.setupWithNavController(
                         navView, navController);
 
-            }else if(user_type == USER_TYPE_VIEWER){
+            } else if (user_type == USER_TYPE_VIEWER) {
                 navView.getMenu().clear();
                 navView.inflateMenu(R.menu.bottom_nav_menu);
                 navController.setGraph(R.navigation.mobile_navigation);
                 NavigationUI.setupWithNavController(
                         navView, navController);
 
-            }else{
-                Integer type = sharedPrefsHelper.get(USER_TYPE,0);
-                if(type == USER_TYPE_CREATOR){
+            } else {
+                Integer type = sharedPrefsHelper.get(USER_TYPE, 0);
+                if (type == USER_TYPE_CREATOR) {
                     navView.getMenu().clear();
                     navView.inflateMenu(R.menu.bottom_nav_creator_menu);
                     navController.setGraph(R.navigation.mobile_navigation_creator);
@@ -79,7 +82,7 @@ public class MainActivity2 extends AppCompatActivity implements NavController.On
                     NavigationUI.setupWithNavController(
                             navView, navController);
 
-                }else if(type == USER_TYPE_VIEWER){
+                } else {
                     navView.getMenu().clear();
                     navView.inflateMenu(R.menu.bottom_nav_menu);
                     navController.setGraph(R.navigation.mobile_navigation);
@@ -91,9 +94,10 @@ public class MainActivity2 extends AppCompatActivity implements NavController.On
         });
 
 
-    //    AppBarConfiguration appBarConfiguration =
-      //          new AppBarConfiguration.Builder(R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications).build();
 
+
+        //    AppBarConfiguration appBarConfiguration =
+        //          new AppBarConfiguration.Builder(R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications).build();
 
 
         navController.addOnDestinationChangedListener(
@@ -111,10 +115,8 @@ public class MainActivity2 extends AppCompatActivity implements NavController.On
 
         if (destination.getId() == R.id.authenticationFragment || destination.getId() == R.id.userTypeFragment2) {
             Objects.requireNonNull(getSupportActionBar()).hide();
-          //  binding.navView.setVisibility(View.GONE);
-        }
-
-        else {
+            binding.navView.setVisibility(View.GONE);
+        } else {
             Objects.requireNonNull(getSupportActionBar()).show();
             binding.navView.setVisibility(View.VISIBLE);
         }

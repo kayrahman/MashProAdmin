@@ -2,6 +2,8 @@ package com.nkr.mashpro.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.nkr.mashpro.R
 
 
@@ -64,4 +66,10 @@ class SharedPrefsHelper(context: Context) {
 
         var PREF_KEY_ACCESS_TOKEN = "access-token"
     }
+
+
+    private val _userModeLive: MutableLiveData<Int> = MutableLiveData()
+    val userModeLive: LiveData<Int>
+        get() = _userModeLive
+
 }

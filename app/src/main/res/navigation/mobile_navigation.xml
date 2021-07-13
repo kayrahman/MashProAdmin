@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_navigation_dashboard_to_authenticationFragment"
             app:destination="@id/authenticationFragment" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_moviePlayerFragment"
+            app:destination="@id/moviePlayerFragment" />
     </fragment>
 
     <fragment

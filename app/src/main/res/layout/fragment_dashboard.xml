@@ -7,7 +7,7 @@
       <import type="android.view.View" />
       <variable
           name="viewModel"
-          type="com.nkr.mashpro.ui.account.AccountViewModel" />
+          type="com.nkr.mashpro.ui.userCredential.UserSubscriptionPlanViewModel" />
 
    </data>
 
@@ -80,7 +80,8 @@
           android:id="@+id/btn_logout"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Logout"
+          android:text="Switch Account"
+          style="@style/Widget.AppCompat.Button.Small"
           app:layout_constraintTop_toTopOf="@+id/tv_approved_movies"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintBottom_toBottomOf="@+id/tv_approved_movies"

@@ -47,7 +47,6 @@ class AccountViewModel(app:Application,val repo : IRepoDataSource) : BaseViewMod
         }
     }
 
-
     private fun UpdateUserImageToRemote(uri: Uri) = viewModelScope.launch {
         showLoading.value = true
         val update_photo_response = repo.uploadUserThumbImageToRemote(uri)

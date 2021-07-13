@@ -1,6 +1,7 @@
 package com.nkr.mashpro
 
 import android.app.Application
+import android.content.Context
 import com.nkr.mashpro.repo.IRepoDataSource
 import com.nkr.mashpro.repo.MashProRepository
 import com.nkr.mashpro.repo.local.ILocalDataSource
@@ -15,8 +16,8 @@ import com.nkr.mashpro.ui.home.HomeViewModel
 import com.nkr.mashpro.ui.moviePlayer.MoviePlayerViewModel
 import com.nkr.mashpro.ui.search.SearchViewModel
 import com.nkr.mashpro.ui.upload.UploadViewModel
-import com.nkr.mashpro.ui.userCredential.UserSubscriptionPlanFragment
 import com.nkr.mashpro.ui.userCredential.UserSubscriptionPlanViewModel
+import com.nkr.mashpro.util.SharedPrefsHelper
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -24,8 +25,14 @@ import org.koin.dsl.module
 import timber.log.Timber
 
 class App : Application() {
+
+     lateinit var sharedPref : SharedPrefsHelper
+
     override fun onCreate() {
         super.onCreate()
+
+        sharedPref = SharedPrefsHelper(this)
+
         if(BuildConfig.DEBUG){
             Timber.plant(Timber.DebugTree())
         }
@@ -112,8 +119,10 @@ class App : Application() {
     }
 
 
+
     companion object {
         const val DEFAULT_PREFERENCES = "default_preferences"
+
     }
 
 }

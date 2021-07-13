@@ -107,7 +107,7 @@ class UploadFragment : BaseFragment() {
                 MediaStore.Video.Media.EXTERNAL_CONTENT_URI
             )
 
-            startActivityForResult(galleryIntent, REQUEST_PICK_VIDEO_FROM_GALLERY)
+           startActivityForResult(galleryIntent, REQUEST_PICK_VIDEO_FROM_GALLERY)
 
         } else {
             ActivityCompat.requestPermissions(
@@ -150,12 +150,6 @@ class UploadFragment : BaseFragment() {
                     viewModel.setVideoUri(it)
                     viewModel.setFilePath(it.toString())
                 }
-
-               /* CropImage.activity(contentURI!!)
-                    .setGuidelines(CropImageView.Guidelines.ON)
-                    // .setAspectRatio(2, 1)
-                    .setMinCropWindowSize(200, 200)
-                    .start(requireContext(), this)*/
             }
         }
         if (requestCode == REQUEST_PICK_IMAGE_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
