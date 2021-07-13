@@ -86,5 +86,9 @@
         android:id="@+id/userTypeFragment2"
         android:name="com.nkr.mashpro.ui.userCredential.UserTypeFragment"
         android:label="fragment_user_type"
-        tools:layout="@layout/fragment_user_type" />
+        tools:layout="@layout/fragment_user_type" >
+        <action
+            android:id="@+id/action_userTypeFragment2_to_uploadFragment"
+            app:destination="@id/uploadFragment" />
+    </fragment>
 </navigation>

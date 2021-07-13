@@ -22,6 +22,7 @@ interface IRemoteDataSource {
     suspend fun setupUserInRemote() : Result<Unit>
     suspend fun updateUserSubscriptionPlan(sub_plan : String) : Result<Unit>
     suspend fun getUserInfo() : Result<FirebaseUserInfo>
+    suspend fun updateUserType(user_type:Int) : Result<Unit>
 
     //storage
     suspend fun uploadUserThumbImage(uri: Uri) : Result<String>

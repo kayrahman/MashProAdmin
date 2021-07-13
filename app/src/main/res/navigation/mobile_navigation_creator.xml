@@ -9,9 +9,9 @@
     <fragment
         android:id="@+id/uploadFragment"
         android:name="com.nkr.mashpro.ui.upload.UploadFragment"
-        android:label="UploadFragment" />
+        android:label="Upload" />
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.nkr.mashpro.ui.account.AccountFragment"
-        android:label="AccountFragment" />
+        android:label="Account" />
 </navigation>

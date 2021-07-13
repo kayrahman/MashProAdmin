@@ -12,11 +12,6 @@
         android:title="@string/title_search" />
 
     <item
-        android:id="@+id/uploadFragment"
-        android:icon="@drawable/ic_twotone_add_circle_outline_24"
-        android:title="@string/title_upload" />
-
-    <item
         android:id="@+id/downloadsFragment"
         android:icon="@drawable/ic_baseline_arrow_downward_24"
         android:title="@string/title_downloads" />

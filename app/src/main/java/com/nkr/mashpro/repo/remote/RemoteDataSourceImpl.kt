@@ -167,6 +167,26 @@ class RemoteDataSourceImpl(
             Result.Error(e)
         }
     }
+
+    override suspend fun updateUserType(user_type: Int): Result<Unit> {
+        val type = HashMap<String, Any>()
+        type["user_type"] = user_type
+
+        return withContext(Dispatchers.IO) {
+            try {
+                val user_uid = getActiveUser()
+                awaitTaskCompletable(
+                    remote.collection(COLLECTION_USERS).document(user_uid)
+                        .update(type)
+                )
+
+                Result.Success(Unit)
+            } catch (exception: Exception) {
+                Result.Error(exception)
+            }
+        }
+    }
+
     //-----------------------storage-----------------------//
     override suspend fun uploadUserThumbImage(uri: Uri): Result<String> {
         return withContext(Dispatchers.IO) {
@@ -175,15 +195,15 @@ class RemoteDataSourceImpl(
                 val unique_file_name = user_uid + System.currentTimeMillis()
                 val ref = storageReference.child("user_thumb_image/$unique_file_name")
                 val upload_task = awaitTaskResult(ref.putFile(uri))
-               Result.Success(ref.path)
+                Result.Success(ref.path)
             } catch (exception: Exception) {
-               Result.Error(exception)
+                Result.Error(exception)
             }
         }
     }
 
     override suspend fun updateImageRef(img_ref: String): Result<Unit> {
-        val img_map = HashMap<String,Any>()
+        val img_map = HashMap<String, Any>()
         img_map["img_url"] = img_ref
 
         return withContext(Dispatchers.IO) {
@@ -193,15 +213,13 @@ class RemoteDataSourceImpl(
                         .document(getActiveUser())
                         .update(img_map)
                 )
-              Result.Success(Unit)
+                Result.Success(Unit)
             } catch (e: Exception) {
-               Result.Error(e)
+                Result.Error(e)
             }
         }
 
     }
-
-
 
 
     suspend fun insertUserIntoRemote(user_uid: String): Result<FirebaseUserInfo> {
@@ -334,7 +352,7 @@ class RemoteDataSourceImpl(
                     .get()
             )
 
-          getMoviesFromTask(task_query_title)
+            getMoviesFromTask(task_query_title)
 
         } catch (e: Exception) {
             Result.Error(e)

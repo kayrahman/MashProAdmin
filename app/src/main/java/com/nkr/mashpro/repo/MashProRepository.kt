@@ -26,6 +26,10 @@ class MashProRepository(
         return remote.getUserInfo()
     }
 
+    override suspend fun updateRemoteUserType(type: Int): Result<Unit> {
+        return remote.updateUserType(type)
+    }
+
     override suspend fun updateUserSubscriptionPlanToRemote(sub_plan: String): Result<Unit> {
         return remote.updateUserSubscriptionPlan(sub_plan)
     }

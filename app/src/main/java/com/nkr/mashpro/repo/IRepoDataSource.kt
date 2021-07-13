@@ -14,6 +14,7 @@ interface IRepoDataSource {
     //-------------------REMOTE-------------------------//
     suspend fun setupUserInRemote(): Result<Unit>
     suspend fun getUserInfoFromRemote() : Result<FirebaseUserInfo>
+    suspend fun updateRemoteUserType(type:Int) : Result<Unit>
     suspend fun updateUserSubscriptionPlanToRemote(sub_plan : String) : Result<Unit>
 
     //

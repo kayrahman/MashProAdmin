@@ -16,7 +16,31 @@ import org.koin.android.ext.android.inject
 
 class UserSubscriptionPlanViewModel(app:Application, val repo : IRepoDataSource) : BaseViewModel(app) {
 
-    val user_type = MutableLiveData<Int>(802)
+    val userType = MutableLiveData<Int>(803)
+    val isUserTypeUpdated = MutableLiveData<Boolean>(false)
+
+    fun handleEvent(event: UserEvent){
+        when(event){
+            is UserEvent.OnUpdateUserType ->{
+                updateUserType(event.user_type)
+            }
+        }
+    }
+
+    private fun updateUserType(userType: Int) = viewModelScope.launch{
+        val response = repo.updateRemoteUserType(userType)
+        when(response){
+            is Result.Success -> {
+                setupUserType(userType)
+                isUserTypeUpdated.value= true
+            }
+
+            is Result.Error -> {
+                isUserTypeUpdated.value= false
+            }
+        }
+
+    }
 
     fun updateSubscriptionPlan(sub_plan_type:String) = viewModelScope.launch {
         showLoading.value = true
@@ -46,6 +70,11 @@ class UserSubscriptionPlanViewModel(app:Application, val repo : IRepoDataSource)
         //go to home screen
         val actionHome = UserSubscriptionPlanFragmentDirections.actionUserTypeFragmentToNavigationHome()
         navigationCommand.value = NavigationCommand.To(actionHome)
+    }
+
+
+    fun setupUserType(user_type : Int){
+        userType.value = user_type
     }
 
 }
