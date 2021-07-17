@@ -103,8 +103,11 @@ class UserSubscriptionPlanViewModel(app:Application, val repo : IRepoDataSource)
                     showLoading.value = false
                     userInfo.value = it
                     userImg.value = it?.img_url
-                    if(it.user_type == USER_TYPE_CREATOR){
+
+                    if(userType.value == USER_TYPE_CREATOR ){
                         userSubcriptionType.value = "Creator"
+                    }else{
+                       userSubcriptionType.value = it.subscription_plan
                     }
                 }
 
@@ -166,6 +169,10 @@ class UserSubscriptionPlanViewModel(app:Application, val repo : IRepoDataSource)
 
     fun setupUserType(user_type : Int){
         userType.value = user_type
+    }
+
+    fun setupUserSubscriptionType(sub_plan_type: String){
+        userSubcriptionType.value = sub_plan_type
     }
 
 
