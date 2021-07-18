@@ -20,7 +20,7 @@ class MoviePlayerViewModel(app: Application, val repo : IRepoDataSource) : BaseV
 
     fun handleEvent(event : MoviePlayerEvent){
         when(event){
-            is MoviePlayerEvent.OnFetchMovies ->  fetchMovies()
+          //  is MoviePlayerEvent.OnFetchMovies ->  fetchMovies()
             is MoviePlayerEvent.OnDownloadMovie -> downloadMovies(event.movie)
         }
     }
@@ -39,6 +39,7 @@ class MoviePlayerViewModel(app: Application, val repo : IRepoDataSource) : BaseV
         }
     }
 
+/*
 
     private fun fetchMovies() = viewModelScope.launch{
         val response = repo.fetchMoviesFromRemote()
@@ -57,6 +58,7 @@ class MoviePlayerViewModel(app: Application, val repo : IRepoDataSource) : BaseV
             }
         }
     }
+*/
 
     fun setCurrentMovie(movie : Movie){
         currentMovie.value = movie

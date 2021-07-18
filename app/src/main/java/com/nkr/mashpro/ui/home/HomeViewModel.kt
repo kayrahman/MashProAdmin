@@ -15,7 +15,8 @@ import timber.log.Timber
 class HomeViewModel(app:Application,val repo : IRepoDataSource) : BaseViewModel(app) {
 
     val adapter = MovieListAdapter()
-    val movieList = MutableLiveData<List<Movie>>()
+    val movieListNew = MutableLiveData<List<Movie>>()
+    val movieListSlide = MutableLiveData<List<Movie>>()
 
     fun handleEvent(event: HomeEvent){
         when(event){
@@ -26,12 +27,12 @@ class HomeViewModel(app:Application,val repo : IRepoDataSource) : BaseViewModel(
     }
 
     private fun fetchMovies() = viewModelScope.launch{
-        val response = repo.fetchMoviesFromRemote()
+        val response = repo.fetchNewMoviesFromRemote()
         when(response){
             is Result.Success ->
             {
                 response.data.let {
-                    movieList.value = it
+                    movieListNew.value = it
                     Timber.i("movie_status : ${response.data}")
                 }
 
@@ -40,6 +41,24 @@ class HomeViewModel(app:Application,val repo : IRepoDataSource) : BaseViewModel(
                 Timber.i("movie_status : ${response.exception}")
             }
         }
+
+        val response_slide_movies = repo.fetchSlideMoviesFromRemote()
+        when(response_slide_movies){
+            is Result.Success ->
+            {
+                response_slide_movies.data.let {
+                    movieListSlide.value = it
+                    Timber.i("movie_status : ${response_slide_movies.data}")
+                }
+
+            }
+            is Result.Error -> {
+                Timber.i("movie_status : ${response_slide_movies.exception}")
+            }
+        }
+
+
+
     }
 
 

@@ -62,7 +62,7 @@ class UploadViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
                                 response.data.video_ref,
                                 thumbnail_response.data,
                                 title, year, desc,
-                                type,
+                                type,title.toLowerCase()
 
                                 )
 

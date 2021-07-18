@@ -34,7 +34,8 @@ interface IRemoteDataSource {
     suspend fun uploadMovieInfo(movie :FirebaseMovieInfo) : Result<Unit>
 
     //movie
-    suspend fun fetchMovies():Result<List<Movie>>
+    suspend fun fetchNewMovies():Result<List<Movie>>
+    suspend fun fetchSlideMovies():Result<List<Movie>>
     suspend fun downloadMovieToLocalFile(movie : String) : Result<String>
 
     //search

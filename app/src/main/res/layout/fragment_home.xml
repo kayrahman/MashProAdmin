@@ -16,20 +16,80 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+        <TextView
+            android:id="@+id/label_new_movies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_new_movies"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/roboto_black"
+            android:textSize="@dimen/xLargeTextSize"
+            android:textColor="@color/colorWhite"
+            android:layout_margin="@dimen/spaceSmall"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movies"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/spaceSmall"
             android:overScrollMode="never"
-            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="3"
-            bind:listitem="@layout/item_list_movie">
+            bind:listitem="@layout/item_list_movie"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintTop_toBottomOf="@+id/label_new_movies"
+            app:layout_constraintBottom_toTopOf="@+id/label_slide_movies"
+
+            >
 
         </androidx.recyclerview.widget.RecyclerView>
 
 
+        <TextView
+            android:id="@+id/label_slide_movies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_slide_movies"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/roboto_black"
+            android:textSize="@dimen/xLargeTextSize"
+            android:textColor="@color/colorWhite"
+            android:layout_margin="@dimen/spaceSmall"
+            app:layout_constraintTop_toBottomOf="@+id/rv_movies"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_slide_movies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spaceSmall"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="3"
+            android:nestedScrollingEnabled="false"
+            bind:listitem="@layout/item_list_movie"
+            app:layout_constraintTop_toBottomOf="@+id/label_slide_movies"
+           app:layout_constraintBottom_toBottomOf="parent"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

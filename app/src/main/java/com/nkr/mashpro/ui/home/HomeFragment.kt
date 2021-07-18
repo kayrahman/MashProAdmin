@@ -60,13 +60,25 @@ class HomeFragment : BaseFragment() {
 
     private fun setupAdapter() {
         binding.rvMovies.adapter = homeViewModel.adapter
+        binding.rvSlideMovies.adapter = homeViewModel.adapter
         val spacing = 10 // 50px
         val includeEdge = false
         binding.rvMovies.addItemDecoration(GridSpacingItemDecoration(3, spacing, includeEdge))
-        homeViewModel.movieList.observe(viewLifecycleOwner, Observer {
+        binding.rvSlideMovies.addItemDecoration(GridSpacingItemDecoration(3, spacing, includeEdge))
+
+        homeViewModel.movieListNew.observe(viewLifecycleOwner, Observer {
             Timber.i("flow_prod_list:${it.size} ")
             //populate the adapter here
             homeViewModel.adapter.submitList(it)
+
+        })
+
+
+        homeViewModel.movieListSlide.observe(viewLifecycleOwner, Observer {
+            Timber.i("flow_prod_list:${it.size} ")
+            //populate the adapter here
+            homeViewModel.adapter.submitList(it)
+
         })
     }
 

@@ -10,12 +10,15 @@ public class FirebaseMovieInfo {
     String movie_year;
     String description;
     String type;
+    String tag;
 
     public FirebaseMovieInfo(){}
 
-    public FirebaseMovieInfo(String video_url,String video_ref,String img_url,
-                             String movie_title,String movie_year,String description,
-                             String type
+
+
+    public FirebaseMovieInfo(String video_url, String video_ref, String img_url,
+                             String movie_title, String movie_year, String description,
+                             String type, String tag
                              ){
 
         this.video_url = video_url;
@@ -25,6 +28,16 @@ public class FirebaseMovieInfo {
         this.movie_year = movie_year;
         this.description = description;
         this.type = type;
+        this.tag = tag;
+    }
+
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public String getVideo_url() {

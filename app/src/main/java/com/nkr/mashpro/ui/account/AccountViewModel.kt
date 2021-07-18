@@ -25,11 +25,11 @@ class AccountViewModel(app:Application,val repo : IRepoDataSource) : BaseViewMod
         when(event){
             is AccountEvent.OnFetchUserInfo -> fetchUserInfo()
             is AccountEvent.OnUpdateUserImage -> UpdateUserImageToRemote(event.uri)
-            is AccountEvent.OnFetchMovies -> fetchMovies()
+          //  is AccountEvent.OnFetchMovies -> fetchMovies()
         }
     }
 
-
+/*
     private fun fetchMovies() = viewModelScope.launch{
         val response = repo.fetchMoviesFromRemote()
         when(response){
@@ -46,6 +46,8 @@ class AccountViewModel(app:Application,val repo : IRepoDataSource) : BaseViewMod
             }
         }
     }
+
+    */
 
     private fun UpdateUserImageToRemote(uri: Uri) = viewModelScope.launch {
         showLoading.value = true

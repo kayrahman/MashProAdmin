@@ -27,7 +27,7 @@ data class Movie(
     val movie_title: String,
     val movie_year: String,
     val description: String,
-    val type : String
+    val type : String,
 ):Parcelable
 
 

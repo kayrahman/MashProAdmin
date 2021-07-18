@@ -13,6 +13,15 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.nkr.mashpro.databinding.ActivityMainBinding
 
+
+//  1. Search case sensitive - done
+// TODO: 2. movie player fragment horizontal list
+// TODO : 3.Grouping movies
+// TODO : 4.Movie player fragment design improvement
+// TODO : 5.Handle When search is empty
+// TODO : 6.On Account Fragment fetchOwnMovies
+// TODO : 6.On Movie player Fragment list of new n slide movies horizontally
+
 class MainActivity : AppCompatActivity(),
     NavController.OnDestinationChangedListener
 {

@@ -21,9 +21,7 @@ import com.nkr.mashpro.model.MovieLocationInfo
 import com.nkr.mashpro.repo.remote.IRemoteDataSource
 import timber.log.Timber
 import com.nkr.mashpro.repo.Result
-import com.nkr.mashpro.util.COLLECTION_MOVIES
-import com.nkr.mashpro.util.COLLECTION_USERS
-import com.nkr.mashpro.util.NODE_MOVIE_TITLE
+import com.nkr.mashpro.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -300,11 +298,12 @@ class RemoteDataSourceImpl(
         }
     }
 
-    override suspend fun fetchMovies(): Result<List<Movie>> {
+    override suspend fun fetchNewMovies(): Result<List<Movie>> {
         return withContext(Dispatchers.IO) {
             try {
                 val task = awaitTaskResult(
                     remote.collection(COLLECTION_MOVIES)
+                        .whereEqualTo(NODE_MOVIE_TYPE,NODE_MOVIE_TYPE_NEW)
                         .get()
                 )
 
@@ -314,6 +313,23 @@ class RemoteDataSourceImpl(
             }
         }
     }
+
+    override suspend fun fetchSlideMovies(): Result<List<Movie>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val task = awaitTaskResult(
+                    remote.collection(COLLECTION_MOVIES)
+                        .whereEqualTo(NODE_MOVIE_TYPE, NODE_MOVIE_TYPE_SLIDE)
+                        .get()
+                )
+
+                getMoviesFromTask(task)
+            } catch (e: Exception) {
+                Result.Error(e)
+            }
+        }
+    }
+
 
     override suspend fun downloadMovieToLocalFile(movie: String): Result<String> {
         //  Timber.i("downloadUri : ${downloadUrl.toString()}")
@@ -343,12 +359,13 @@ class RemoteDataSourceImpl(
         }
     }
 
-    override suspend fun fetchMoviesBySearch(queryString: String): Result<List<Movie>> {
+    override suspend fun fetchMoviesBySearch(query: String): Result<List<Movie>> {
+        val queryString = query.toLowerCase()
         return try {
             val task_query_title = awaitTaskResult(
                 remote.collection(COLLECTION_MOVIES)
-                    .whereGreaterThanOrEqualTo(NODE_MOVIE_TITLE, queryString)
-                    .whereLessThan(NODE_MOVIE_TITLE, queryString + 'z')
+                    .whereGreaterThanOrEqualTo(NODE_MOVIE_TAG, queryString)
+                    .whereLessThan(NODE_MOVIE_TAG, queryString + 'z')
                     .get()
             )
 

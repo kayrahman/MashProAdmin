@@ -26,6 +26,8 @@
     <string name="label_user_type">Are you a</string>
     <string name="creator">Creator</string>
     <string name="viewer">Viewer</string>
+    <string name="label_new_movies">New Movies</string>
+    <string name="label_slide_movies">Slide Movies</string>
 
 
 </resources>

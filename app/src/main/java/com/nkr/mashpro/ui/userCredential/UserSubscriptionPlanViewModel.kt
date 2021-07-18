@@ -38,11 +38,12 @@ class UserSubscriptionPlanViewModel(app:Application, val repo : IRepoDataSource)
 
             is UserEvent.OnFetchUserInfo -> fetchUserInfo()
             is UserEvent.OnUpdateUserImage -> UpdateUserImageToRemote(event.uri)
-            is UserEvent.OnFetchMovies -> fetchMovies()
+           // is UserEvent.OnFetchMovies -> fetchMovies()
         }
     }
 
 
+/*
 
 
     private fun fetchMovies() = viewModelScope.launch{
@@ -61,6 +62,7 @@ class UserSubscriptionPlanViewModel(app:Application, val repo : IRepoDataSource)
             }
         }
     }
+*/
 
     private fun UpdateUserImageToRemote(uri: Uri) = viewModelScope.launch {
         showLoading.value = true
