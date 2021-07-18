@@ -23,6 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/spaceNormal"
+            android:layout_marginStart="@dimen/spaceSmall"
+            android:layout_marginEnd="@dimen/spaceSmall"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="2"

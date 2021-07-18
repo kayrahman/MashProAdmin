@@ -53,6 +53,10 @@ class MashProRepository(
         return remote.fetchSlideMovies()
     }
 
+    override suspend fun fetchOwnMoviesFromRemote(): Result<List<Movie>> {
+        return remote.fetchOwnUploadedMovies()
+    }
+
 
     override suspend fun downloadMovieFromRemote(movie: Movie): Result<Unit> {
         return withContext(Dispatchers.IO) {

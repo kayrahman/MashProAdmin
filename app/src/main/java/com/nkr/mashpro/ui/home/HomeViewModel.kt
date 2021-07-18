@@ -33,12 +33,12 @@ class HomeViewModel(app:Application,val repo : IRepoDataSource) : BaseViewModel(
             {
                 response.data.let {
                     movieListNew.value = it
-                    Timber.i("movie_status : ${response.data}")
+                    Timber.i("movie_status_new : ${response.data.size}")
                 }
 
             }
             is Result.Error -> {
-                Timber.i("movie_status : ${response.exception}")
+                Timber.i("movie_status_new : ${response.exception}")
             }
         }
 
@@ -48,12 +48,12 @@ class HomeViewModel(app:Application,val repo : IRepoDataSource) : BaseViewModel(
             {
                 response_slide_movies.data.let {
                     movieListSlide.value = it
-                    Timber.i("movie_status : ${response_slide_movies.data}")
+                    Timber.i("movie_status_slide : ${response_slide_movies.data.size}")
                 }
 
             }
             is Result.Error -> {
-                Timber.i("movie_status : ${response_slide_movies.exception}")
+                Timber.i("movie_status_slide : ${response_slide_movies.exception}")
             }
         }
 

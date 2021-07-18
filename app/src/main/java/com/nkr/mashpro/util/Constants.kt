@@ -11,6 +11,7 @@ const val COLLECTION_MOVIES = "movies"
 const val NODE_MOVIE_TITLE = "movie_title"
 const val NODE_MOVIE_TAG = "tag"
 const val NODE_MOVIE_TYPE = "type"
+const val NODE_MOVIE_CREATOR = "creator"
 const val NODE_MOVIE_TYPE_NEW = "New"
 const val NODE_MOVIE_TYPE_SLIDE = "Slide"
 

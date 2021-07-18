@@ -25,29 +25,29 @@ class AccountViewModel(app:Application,val repo : IRepoDataSource) : BaseViewMod
         when(event){
             is AccountEvent.OnFetchUserInfo -> fetchUserInfo()
             is AccountEvent.OnUpdateUserImage -> UpdateUserImageToRemote(event.uri)
-          //  is AccountEvent.OnFetchMovies -> fetchMovies()
+            is AccountEvent.OnFetchMovies -> fetchMovies()
         }
     }
 
-/*
+
     private fun fetchMovies() = viewModelScope.launch{
-        val response = repo.fetchMoviesFromRemote()
+        val response = repo.fetchOwnMoviesFromRemote()
         when(response){
             is Result.Success ->
             {
                 response.data.let {
                     movieList.value = it
-                    Timber.i("movie_status : ${response.data}")
+                    Timber.i("own_movie_status : ${response.data}")
                 }
 
             }
             is Result.Error -> {
-                Timber.i("movie_status : ${response.exception}")
+                Timber.i("own_movie_status : ${response.exception}")
             }
         }
     }
 
-    */
+
 
     private fun UpdateUserImageToRemote(uri: Uri) = viewModelScope.launch {
         showLoading.value = true

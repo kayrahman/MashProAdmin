@@ -285,6 +285,7 @@ class RemoteDataSourceImpl(
 
     override suspend fun uploadMovieInfo(movie: FirebaseMovieInfo): Result<Unit> {
         Timber.i("movie_upload${movie.toString()}")
+         movie.creator = getActiveUser()
         return withContext(Dispatchers.IO) {
             try {
                 awaitTaskCompletable(
@@ -320,6 +321,23 @@ class RemoteDataSourceImpl(
                 val task = awaitTaskResult(
                     remote.collection(COLLECTION_MOVIES)
                         .whereEqualTo(NODE_MOVIE_TYPE, NODE_MOVIE_TYPE_SLIDE)
+                        .get()
+                )
+
+                getMoviesFromTask(task)
+            } catch (e: Exception) {
+                Result.Error(e)
+            }
+        }
+    }
+
+
+    override suspend fun fetchOwnUploadedMovies(): Result<List<Movie>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val task = awaitTaskResult(
+                    remote.collection(COLLECTION_MOVIES)
+                        .whereEqualTo(NODE_MOVIE_CREATOR,getActiveUser())
                         .get()
                 )
 

@@ -11,14 +11,16 @@ public class FirebaseMovieInfo {
     String description;
     String type;
     String tag;
+    String creator;
 
     public FirebaseMovieInfo(){}
 
 
 
+
     public FirebaseMovieInfo(String video_url, String video_ref, String img_url,
                              String movie_title, String movie_year, String description,
-                             String type, String tag
+                             String type, String tag, String creator
                              ){
 
         this.video_url = video_url;
@@ -29,8 +31,18 @@ public class FirebaseMovieInfo {
         this.description = description;
         this.type = type;
         this.tag = tag;
+        this.creator = creator;
+
     }
 
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
 
     public String getTag() {
         return tag;
