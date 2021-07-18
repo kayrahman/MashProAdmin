@@ -16,10 +16,10 @@ import com.nkr.mashpro.databinding.ActivityMainBinding
 
 //  1. Search case sensitive - done
 // TODO: 2. movie player fragment horizontal list
-// TODO : 3.Grouping movies
+// 3.Grouping movies in home fragment - done
 // TODO : 4.Movie player fragment design improvement
 // TODO : 5.Handle When search is empty
-// TODO : 6.On Account Fragment fetchOwnMovies
+// 6.On Account Fragment fetchOwnMovies - done
 // TODO : 6.On Movie player Fragment list of new n slide movies horizontally
 
 class MainActivity : AppCompatActivity(),

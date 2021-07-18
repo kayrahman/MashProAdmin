@@ -61,7 +61,8 @@ class MashProRepository(
     override suspend fun downloadMovieFromRemote(movie: Movie): Result<Unit> {
         return withContext(Dispatchers.IO) {
             try {
-                val download_response = remote.downloadMovieToLocalFile(movie.video_url)
+
+                val download_response = movie.video_ref?.let { remote.downloadMovieToLocalFile(it) }
                 when (download_response) {
                     is Result.Success -> {
                         val movie = movie.toMovieDTO
@@ -83,7 +84,12 @@ class MashProRepository(
                         throw Exception(download_response.exception.toString())
 
                     }
+                    else -> {
+                        throw Exception("Video not found")
+                    }
+
                 }
+
 
             } catch (e: Exception) {
                 Result.Error(e)

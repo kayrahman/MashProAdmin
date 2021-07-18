@@ -38,7 +38,7 @@ class HomeFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-      //  homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        //  homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -62,6 +62,19 @@ class HomeFragment : BaseFragment() {
         binding.rvMovies.adapter = homeViewModel.adapter
         val spacing = 10 // 50px
         val includeEdge = false
+
+        val gridLayoutManager = GridLayoutManager(requireContext(), 3)
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int =
+                when (position) {
+                    0 -> 3
+                    else -> 1
+                }
+
+
+        }
+        binding.rvMovies.layoutManager = gridLayoutManager
+
         binding.rvMovies.addItemDecoration(GridSpacingItemDecoration(3, spacing, includeEdge))
         homeViewModel.movieListNew.observe(viewLifecycleOwner, Observer {
             Timber.i("flow_prod_list:${it.size} ")
@@ -80,18 +93,30 @@ class HomeFragment : BaseFragment() {
             slide_adapter.submitList(it)
 
         })
+
+
+        slide_adapter.listener = MovieListAdapter.MovieItemClickListener {
+            // go to movie player
+            val actionMoviePlayer =
+                HomeFragmentDirections.actionNavigationHomeToMoviePlayerFragment(it)
+            homeViewModel.navigationCommand.value = NavigationCommand.To(actionMoviePlayer)
+        }
+
     }
 
     private fun setupListener() {
-        homeViewModel.adapter.listener = MovieListAdapter.MovieItemClickListener{
+        homeViewModel.adapter.listener = MovieListAdapter.MovieItemClickListener {
             // go to movie player
-            val actionMoviePlayer = HomeFragmentDirections.actionNavigationHomeToMoviePlayerFragment(it)
+            val actionMoviePlayer =
+                HomeFragmentDirections.actionNavigationHomeToMoviePlayerFragment(it)
             homeViewModel.navigationCommand.value = NavigationCommand.To(actionMoviePlayer)
         }
+
+
     }
 
     private fun observeViewModel() {
-      //  homeViewModel.handleEvent()
+        //  homeViewModel.handleEvent()
     }
 
     override fun onDestroyView() {

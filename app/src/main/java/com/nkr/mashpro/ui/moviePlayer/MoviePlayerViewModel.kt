@@ -14,13 +14,15 @@ import timber.log.Timber
 
 class MoviePlayerViewModel(app: Application, val repo : IRepoDataSource) : BaseViewModel(app) {
     val adapter = MovieListHorizontalAdapter()
-    val movieList = MutableLiveData<List<Movie>>()
+   // val movieList = MutableLiveData<List<Movie>>()
+    val movieListNew = MutableLiveData<List<Movie>>()
+    val movieListSlide = MutableLiveData<List<Movie>>()
     val currentMovie = MutableLiveData<Movie>()
     val showPoster = MutableLiveData<Boolean>()
 
     fun handleEvent(event : MoviePlayerEvent){
         when(event){
-          //  is MoviePlayerEvent.OnFetchMovies ->  fetchMovies()
+            is MoviePlayerEvent.OnFetchMovies ->  fetchMovies()
             is MoviePlayerEvent.OnDownloadMovie -> downloadMovies(event.movie)
         }
     }
@@ -39,26 +41,41 @@ class MoviePlayerViewModel(app: Application, val repo : IRepoDataSource) : BaseV
         }
     }
 
-/*
+
 
     private fun fetchMovies() = viewModelScope.launch{
-        val response = repo.fetchMoviesFromRemote()
+        val response = repo.fetchNewMoviesFromRemote()
         when(response){
             is Result.Success ->
             {
                 response.data.let {
-                    it.minus(currentMovie.value)
-                    movieList.value = it
-                    Timber.i("movie_status : ${response.data}")
+                    movieListNew.value = it
+                    Timber.i("movie_status_new : ${response.data.size}")
                 }
 
             }
             is Result.Error -> {
-                Timber.i("movie_status : ${response.exception}")
+                Timber.i("movie_status_new : ${response.exception}")
             }
         }
+
+        val response_slide_movies = repo.fetchSlideMoviesFromRemote()
+        when(response_slide_movies){
+            is Result.Success ->
+            {
+                response_slide_movies.data.let {
+                    movieListSlide.value = it
+                    Timber.i("movie_status_slide : ${response_slide_movies.data.size}")
+                }
+
+            }
+            is Result.Error -> {
+                Timber.i("movie_status_slide : ${response_slide_movies.exception}")
+            }
+        }
+
     }
-*/
+
 
     fun setCurrentMovie(movie : Movie){
         currentMovie.value = movie

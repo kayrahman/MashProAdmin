@@ -12,10 +12,14 @@ import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.util.Util
+import com.nkr.bazaranocustomer.base.NavigationCommand
+import com.nkr.bazaranocustomer.util.GridSpacingItemDecoration
 import com.nkr.mashpro.base.BaseFragment
 import com.nkr.mashpro.base.BaseViewModel
 import com.nkr.mashpro.databinding.MoviePlayerFragmentBinding
 import com.nkr.mashpro.model.Movie
+import com.nkr.mashpro.ui.home.HomeFragmentDirections
+import com.nkr.mashpro.ui.home.MovieListAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -59,11 +63,11 @@ class MoviePlayerFragment : BaseFragment() {
         binding.lifecycleOwner = this
         viewModel.handleEvent(MoviePlayerEvent.OnFetchMovies)
 
-        binding.rvMovies.adapter = viewModel.adapter
+        binding.rvMoviesNew.adapter = viewModel.adapter
         val spacing = 10 // 50px
         val includeEdge = false
         // binding.rvMovies.addItemDecoration(GridSpacingItemDecoration(3, spacing, includeEdge))
-        viewModel.movieList.observe(viewLifecycleOwner, Observer {
+        viewModel.movieListNew.observe(viewLifecycleOwner, Observer {
             viewModel.adapter.submitList(it)
         })
 
@@ -73,6 +77,25 @@ class MoviePlayerFragment : BaseFragment() {
             viewModel.setCurrentMovie(it)
             initializePlayer()
         }
+
+
+        val slide_adapter  = MovieListHorizontalAdapter()
+        binding.rvSlideMovies.adapter = slide_adapter
+        binding.rvSlideMovies.addItemDecoration(GridSpacingItemDecoration(3, spacing, includeEdge))
+        viewModel.movieListSlide.observe(viewLifecycleOwner, Observer {
+            Timber.i("flow_prod_list:${it.size} ")
+            //populate the adapter here
+            slide_adapter.submitList(it)
+
+        })
+
+        slide_adapter.listener = MovieListHorizontalAdapter.MovieItemClickListener {
+            movie = it
+            viewModel.setCurrentMovie(it)
+            initializePlayer()
+        }
+
+
 
         binding.ivDownload.setOnClickListener {
             viewModel.handleEvent(MoviePlayerEvent.OnDownloadMovie(movie))
