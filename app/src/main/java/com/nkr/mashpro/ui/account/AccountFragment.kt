@@ -66,6 +66,7 @@ class AccountFragment : BaseFragment() {
         }
 
         setupAdapter()
+        
 
     }
 
@@ -91,7 +92,7 @@ class AccountFragment : BaseFragment() {
     }
 
     private fun setupListener() {
-        binding.btnLogout.setOnClickListener {
+        binding.btnSwitchAccount.setOnClickListener {
             dashboardViewModel.setupUserType(USER_TYPE_CREATOR)
           /*  AuthUI.getInstance()
                 .signOut(requireContext())
@@ -102,6 +103,16 @@ class AccountFragment : BaseFragment() {
                     findNavController().navigate(actionToAuthFm)
 
                 }*/
+        }
+
+        binding.btnSignout.setOnClickListener {
+            AuthUI.getInstance()
+                .signOut(requireContext())
+                .addOnCompleteListener {
+                    dashboardViewModel.navigationCommand.value = NavigationCommand.BackTo(R.id.authenticationFragment)
+                    Toast.makeText(requireContext(),"Singed out", Toast.LENGTH_SHORT).show()
+                }
+
         }
 
     }

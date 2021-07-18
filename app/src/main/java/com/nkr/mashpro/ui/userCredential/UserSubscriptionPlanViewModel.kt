@@ -4,6 +4,7 @@ import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.nkr.bazaranocustomer.base.NavigationCommand
 import com.nkr.mashpro.base.BaseViewModel
@@ -13,8 +14,10 @@ import com.nkr.mashpro.repo.IRepoDataSource
 import kotlinx.coroutines.launch
 import com.nkr.mashpro.repo.Result
 import com.nkr.mashpro.ui.account.AccountEvent
+import com.nkr.mashpro.ui.authentication.FirebaseUserLiveData
 import com.nkr.mashpro.util.USER_SUBSCRIPTION_TYPE_FREE
 import com.nkr.mashpro.util.USER_SUBSCRIPTION_TYPE_MONTHLY
+import com.nkr.mashpro.util.USER_TYPE_CREATOR
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.android.inject
 import timber.log.Timber
@@ -26,6 +29,7 @@ class UserSubscriptionPlanViewModel(app:Application, val repo : IRepoDataSource)
 
 
     val userInfo = MutableLiveData<FirebaseUserInfo>()
+    val userSubcriptionType = MutableLiveData<String>()
     val userImg = MutableLiveData<String>()
     val movieList = MutableLiveData<List<Movie>>()
 
@@ -101,6 +105,12 @@ class UserSubscriptionPlanViewModel(app:Application, val repo : IRepoDataSource)
                     showLoading.value = false
                     userInfo.value = it
                     userImg.value = it?.img_url
+
+                    if(userType.value == USER_TYPE_CREATOR ){
+                        userSubcriptionType.value = "Creator"
+                    }else{
+                       userSubcriptionType.value = it.subscription_plan
+                    }
                 }
 
                 Timber.i("user_info : ${response.data.toString()}")
@@ -162,5 +172,23 @@ class UserSubscriptionPlanViewModel(app:Application, val repo : IRepoDataSource)
     fun setupUserType(user_type : Int){
         userType.value = user_type
     }
+
+    fun setupUserSubscriptionType(sub_plan_type: String){
+        userSubcriptionType.value = sub_plan_type
+    }
+
+
+    enum class AuthenticationState {
+        AUTHENTICATED, UNAUTHENTICATED, INVALID_AUTHENTICATION
+    }
+
+    val authenticationState = FirebaseUserLiveData().map { user ->
+        if (user != null) {
+            AuthenticationState.AUTHENTICATED
+        } else {
+            AuthenticationState.UNAUTHENTICATED
+        }
+    }
+
 
 }

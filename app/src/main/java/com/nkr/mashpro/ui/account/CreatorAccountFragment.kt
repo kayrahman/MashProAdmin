@@ -21,6 +21,7 @@ import com.firebase.ui.auth.AuthUI
 import com.nkr.bazaranocustomer.base.NavigationCommand
 import com.nkr.bazaranocustomer.util.GridSpacingItemDecoration
 import com.nkr.mashpro.R
+import com.nkr.mashpro.activities.MainActivity2
 import com.nkr.mashpro.base.BaseFragment
 import com.nkr.mashpro.base.BaseViewModel
 import com.nkr.mashpro.databinding.FragmentDashboardBinding
@@ -66,10 +67,6 @@ class CreatorAccountFragment : BaseFragment() {
 
         setupAdapter()
 
-        binding.btnLogout.setOnClickListener {
-            viewModel.setupUserType(USER_TYPE_VIEWER)
-        }
-
     }
 
     private fun setupAdapter() {
@@ -94,6 +91,7 @@ class CreatorAccountFragment : BaseFragment() {
     }
 
     private fun setupListener() {
+      /*
         binding.btnLogout.setOnClickListener {
             AuthUI.getInstance()
                 .signOut(requireContext())
@@ -105,6 +103,22 @@ class CreatorAccountFragment : BaseFragment() {
 
 
                 }
+        }*/
+
+        binding.btnSwitchAccount.setOnClickListener {
+            viewModel.setupUserType(USER_TYPE_VIEWER)
+        }
+
+        binding.btnSignout.setOnClickListener {
+            AuthUI.getInstance()
+                .signOut(requireContext())
+                .addOnCompleteListener {
+
+                    val intent = Intent(requireActivity(),MainActivity2::class.java)
+                    requireContext().startActivity(intent)
+                    Toast.makeText(requireContext(),"Singed out",Toast.LENGTH_SHORT).show()
+                }
+
         }
 
 
