@@ -16,10 +16,10 @@
     <ImageView
         android:id="@+id/iv_thumbnail"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:adjustViewBounds="true"
+        android:layout_height="180dp"
         android:src="@drawable/ic_twotone_photo_24"
         imageFromUrl="@{movie.img_url}"
+        android:scaleType="fitXY"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

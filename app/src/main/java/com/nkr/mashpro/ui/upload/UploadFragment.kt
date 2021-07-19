@@ -64,7 +64,9 @@ class UploadFragment : BaseFragment() {
         viewModel.isUploadSuccessful.observe(viewLifecycleOwner, Observer {
             if(it){
                 //go to movie list screen
-                viewModel.navigationCommand.value = NavigationCommand.BackTo(R.id.navigation_home)
+              //  viewModel.navigationCommand.value = NavigationCommand.BackTo(R.id.navigation_home)
+            findNavController().navigate(R.id.creatorAccountFragment)
+
             }
         })
     }

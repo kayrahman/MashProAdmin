@@ -118,7 +118,7 @@
           android:layout_height="0dp"
           android:layout_margin="@dimen/spaceSmall"
           android:overScrollMode="never"
-          app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+          app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
           app:spanCount="3"
           app:layout_constraintTop_toBottomOf="@+id/tv_approved_movies"
           app:layout_constraintBottom_toBottomOf="parent"

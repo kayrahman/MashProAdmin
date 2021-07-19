@@ -5,7 +5,9 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nkr.bazaranocustomer.base.NavigationCommand
 import com.nkr.bazaranocustomer.util.SingleLiveEvent
+import com.nkr.mashpro.R
 import com.nkr.mashpro.base.BaseViewModel
 import com.nkr.mashpro.model.FirebaseMovieInfo
 import com.nkr.mashpro.repo.IRepoDataSource
@@ -74,6 +76,10 @@ class UploadViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
                                     is Result.Success -> {
                                         isUploadSuccessful.value = true
                                         showLoading.value = false
+
+                                       // navigationCommand.value = NavigationCommand.BackTo(R.id.creatorAccountFragment)
+
+
                                     }
                                     is Result.Error -> {
                                         showSnackBar.value = "Error uploading movie"
