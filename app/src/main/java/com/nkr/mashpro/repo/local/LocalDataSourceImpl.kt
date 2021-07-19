@@ -1,6 +1,9 @@
 package com.nkr.mashpro.repo.local
 
+import com.nkr.bazaranocustomer.repo.local.dto.search.RoomSearchedWord
+import com.nkr.bazaranocustomer.repo.local.dto.search.SearchedWord
 import com.nkr.bazaranocustomer.repo.remote.toMovies
+import com.nkr.bazaranocustomer.repo.remote.toSearchWordListFromRoom
 import com.nkr.mashpro.model.Movie
 import com.nkr.mashpro.repo.Result
 import com.nkr.mashpro.repo.local.model.MovieDTO
@@ -22,10 +25,6 @@ class LocalDataSourceImpl(val dao: MovieDao) : ILocalDataSource {
         }
     }
 
-    override suspend fun clearAllSearchedWords(): Result<Unit> {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun getDownloadedMovie(): Result<List<Movie>> {
         return withContext(Dispatchers.Default) {
             try {
@@ -36,5 +35,42 @@ class LocalDataSourceImpl(val dao: MovieDao) : ILocalDataSource {
             }
         }
     }
+
+
+
+    //word
+    override suspend fun insertSearchedWord(wordRoom: RoomSearchedWord): Result<Unit> {
+        return withContext(Dispatchers.Default){
+            try {
+                dao.insertSearchWords(wordRoom)
+               Result.Success(Unit)
+            }catch (e:Exception){
+               Result.Error(e)
+            }
+        }
+    }
+
+    override suspend fun clearAllSearchedWords(): Result<Unit> {
+        return withContext(Dispatchers.Default){
+            try {
+                dao.clear()
+                Result.Success(Unit)
+            }catch (e:Exception){
+               Result.Error(e)
+            }
+        }
+    }
+
+    override suspend fun getSearchedWords():Result<List<SearchedWord>> {
+        return withContext(Dispatchers.Default){
+            try {
+                val words = dao.getAllSearchedWords().toSearchWordListFromRoom()
+                Result.Success(words)
+            }catch (e:Exception){
+               Result.Error(e)
+            }
+        }
+    }
+
 
 }

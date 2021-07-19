@@ -2,6 +2,8 @@ package com.nkr.bazaranocustomer.repo.remote
 
 import android.util.Log
 import com.google.android.gms.tasks.Task
+import com.nkr.bazaranocustomer.repo.local.dto.search.RoomSearchedWord
+import com.nkr.bazaranocustomer.repo.local.dto.search.SearchedWord
 import com.nkr.mashpro.model.FirebaseMovieInfo
 import com.nkr.mashpro.model.Movie
 import com.nkr.mashpro.repo.local.model.MovieDTO
@@ -90,3 +92,14 @@ val List<MovieDTO>.toMovies: List<Movie>
             type = it.type
         )
     }
+
+
+
+internal fun List<RoomSearchedWord>.toSearchWordListFromRoom(): List<SearchedWord> = this.flatMap {
+    listOf(it.toSearchWord)
+}
+
+
+internal val RoomSearchedWord.toSearchWord: SearchedWord
+    get() = SearchedWord(this.searched_word, null)
+

@@ -1,6 +1,8 @@
 package com.nkr.mashpro.repo
 
 import android.net.Uri
+import com.nkr.bazaranocustomer.repo.local.dto.search.RoomSearchedWord
+import com.nkr.bazaranocustomer.repo.local.dto.search.SearchedWord
 import com.nkr.bazaranocustomer.repo.remote.toMovieDTO
 import com.nkr.mashpro.model.FirebaseMovieInfo
 import com.nkr.mashpro.model.FirebaseUserInfo
@@ -118,4 +120,24 @@ class MashProRepository(
     override suspend fun getDownloadedMoviesFromLocalDb(): Result<List<Movie>> {
         return local.getDownloadedMovie()
     }
+
+
+
+    //----------------------------------SEARCH-----------------------------------//
+    override suspend fun insertSearchedWord(wordRoom: RoomSearchedWord): Result<Unit> {
+        return local.insertSearchedWord(wordRoom)
+    }
+
+    override suspend fun clearAllSearchedWords(): Result<Unit> {
+        return local.clearAllSearchedWords()
+    }
+
+    override suspend fun getSearchedWords(): Result<List<SearchedWord>> {
+        return local.getSearchedWords()
+    }
+
+
+
+
 }
+

@@ -21,6 +21,7 @@ import com.nkr.mashpro.databinding.ActivityMainBinding
 // TODO : 5.Handle When search is empty
 // 6.On Account Fragment fetchOwnMovies - done
 // TODO : 6.On Movie player Fragment list of new n slide movies horizontally
+// TODO : 7. Upon successful video ulpoad go to account fragment
 
 class MainActivity : AppCompatActivity(),
     NavController.OnDestinationChangedListener

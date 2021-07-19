@@ -2,6 +2,8 @@ package com.nkr.mashpro.repo
 
 import android.net.Uri
 import com.google.firebase.firestore.QuerySnapshot
+import com.nkr.bazaranocustomer.repo.local.dto.search.RoomSearchedWord
+import com.nkr.bazaranocustomer.repo.local.dto.search.SearchedWord
 import com.nkr.mashpro.model.FirebaseMovieInfo
 import com.nkr.mashpro.model.FirebaseUserInfo
 import com.nkr.mashpro.model.Movie
@@ -41,6 +43,10 @@ interface IRepoDataSource {
     suspend fun insertMoviesIntoLocalDb(movie: MovieDTO) : Result<Unit>
     suspend fun getDownloadedMoviesFromLocalDb() : Result<List<Movie>>
 
+//
 
+    suspend fun insertSearchedWord(wordRoom: RoomSearchedWord): Result<Unit>
+    suspend fun clearAllSearchedWords():Result<Unit>
+    suspend fun getSearchedWords(): Result<List<SearchedWord>>
 
 }

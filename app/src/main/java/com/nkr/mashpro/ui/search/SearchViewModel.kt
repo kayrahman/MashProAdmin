@@ -43,16 +43,18 @@ class SearchViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
     fun handleEvent(event: SearchListEvent) {
         when (event) {
             is SearchListEvent.OnPopulateSavedSearches -> {
-              //  getSearchedWords()
+                getSearchedWords()
             }
-         //   is SearchListEvent.OnClearSavedSearches -> clearSavedSearches()
+
+            is SearchListEvent.OnClearSavedSearches -> clearSavedSearches()
+
             is SearchListEvent.OnPopulateQueryItems -> {
-           //     queryString.value = event.query_string
+                queryString.value = event.query_string
                 populateSearchItemList(event.query_string)
             }
 
             is SearchListEvent.OnPopulateKeywordSuggestion -> {
-             //   populateKeywordSuggestions(event.query_string)
+             //  populateKeywordSuggestions(event.query_string)
             }
 
 
@@ -84,7 +86,7 @@ class SearchViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
     }
 
 */
-/*
+
 
     val queryString = MutableLiveData<String>()
     private fun clearSavedSearches() = viewModelScope.launch {
@@ -103,7 +105,8 @@ class SearchViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
         }
 
     }
-*/
+
+
 /*
 
     val searched_products = queryString.switchMap {
@@ -115,17 +118,23 @@ class SearchViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
 */
 
 
+
     fun populateSearchItemList(queryString: String) = viewModelScope.launch {
         isSearched.value = true
         searchQuery.value = queryString
 
-       // val searchWord = RoomSearchedWord(searched_word = queryString)
-       // insert(searchWord)
+        val searchWord = RoomSearchedWord(searched_word = queryString)
+        insert(searchWord)
         val search_resposne = repo.fetchProductsBySearch(queryString)
         when (search_resposne) {
             is Result.Success -> {
                 search_resposne.data.let {
                     movieList.value = it
+                    showNoData.value = it.isEmpty()
+                    if(it.isEmpty()){
+                        isSearched.value = false
+                        getSearchedWords()
+                    }
                 }
 
                 Timber.i("search_word_response : Success ${search_resposne.data.toString()}")
@@ -137,7 +146,7 @@ class SearchViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
         }
 
     }
-/*
+
 
     private suspend fun insert(searchWordRoom: RoomSearchedWord) {
         withContext(Dispatchers.Default) {
@@ -153,8 +162,8 @@ class SearchViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
 
         }
     }
-*/
-/*
+
+
     private fun getSearchedWords() = viewModelScope.launch {
         val searched_word_response = repo.getSearchedWords()
         when (searched_word_response) {
@@ -162,11 +171,12 @@ class SearchViewModel(app: Application, val repo: IRepoDataSource) : BaseViewMod
                 searchWords.value = searched_word_response.data!!
                 isSavedSearchEmpty.value = searched_word_response.data.isNotEmpty()
                 searchWordsAdapter.updateAdapterList(searched_word_response.data)
+                Timber.i("search_word_fetch_status : ${searched_word_response.data}")
             }
             is Result.Error -> {
                 Timber.i("search_word_fetch_error : ${searched_word_response.exception}")
             }
         }
-    }*/
+    }
 
 }

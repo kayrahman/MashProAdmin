@@ -38,7 +38,9 @@
             android:layout_height="wrap_content"
             android:text="@{listingViewModel.keyword}"
             tools:text="@string/search_demo_text"
+            android:fontFamily="@font/poppins_bold"
             android:textColor="@color/colorOffWhite"
+            android:layout_marginStart="@dimen/spaceNormal"
             />
 
 

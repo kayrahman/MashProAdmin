@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import com.nkr.bazaranocustomer.repo.local.dto.search.SearchedWord
 import com.nkr.bazaranocustomer.util.GridSpacingItemDecoration
 import com.nkr.mashpro.R
+import com.nkr.mashpro.activities.MainActivity2
 import com.nkr.mashpro.base.BaseFragment
 import com.nkr.mashpro.base.BaseListAdapter
 import com.nkr.mashpro.base.BaseViewModel
@@ -32,12 +33,19 @@ class SearchFragment : BaseFragment() {
     private lateinit var binding : SearchFragmentBinding
     lateinit var searchPlate : EditText
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel.handleEvent(SearchListEvent.OnPopulateSavedSearches)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = SearchFragmentBinding.inflate(inflater,container,false)
         setHasOptionsMenu(true)
+        (activity as MainActivity2).supportActionBar?.title = "Search"
         return binding.root
     }
 
@@ -93,6 +101,11 @@ class SearchFragment : BaseFragment() {
                 }
 
             }
+        }
+
+
+        binding.tvClearAllSavedSearches.setOnClickListener {
+            viewModel.handleEvent(SearchListEvent.OnClearSavedSearches)
         }
 
     }

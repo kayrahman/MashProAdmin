@@ -14,14 +14,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space4dp"
+        >
 
         <ImageView
             android:id="@+id/iv_thumbnail"
             imageFromUrl="@{movie.img_url}"
-            android:layout_width="200dp"
-            android:layout_height="0dp"
-            android:adjustViewBounds="true"
+            android:layout_width="150dp"
+            android:layout_height="180dp"
+            android:scaleType="fitXY"
             android:src="@drawable/ic_twotone_photo_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -40,7 +42,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
-            tools:text="Another Round" />
+            tools:text="Another Round"
+            android:layout_margin="@dimen/spaceSmall"
+            />
 
         <TextView
             android:id="@+id/tv_movie_year"
@@ -50,11 +54,29 @@
             android:text="2009-07-12"
             android:textColor="@color/colorOffWhite"
             android:textSize="@dimen/smallTextSize"
+            android:layout_marginStart="@dimen/spaceSmall"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/iv_thumbnail"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_title"
             tools:text="Another Round" />
+
+        <TextView
+            android:id="@+id/tv_movie_description"
+            android:layout_width="@dimen/space0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:text="@{movie.description}"
+            android:textColor="@color/colorOffWhite"
+            android:textSize="@dimen/smallTextSize"
+            android:layout_marginStart="@dimen/spaceSmall"
+            android:layout_marginTop="@dimen/spaceNormal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iv_thumbnail"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_year"
+            tools:text="Mads Mikkelsen" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
