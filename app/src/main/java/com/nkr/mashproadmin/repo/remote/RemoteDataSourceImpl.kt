@@ -344,6 +344,22 @@ class RemoteDataSourceImpl(
         }
     }
 
+    override suspend fun fetchPendingMovies(): Result<List<Movie>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val task = awaitTaskResult(
+                    remote.collection(COLLECTION_MOVIES)
+                        .whereEqualTo(NODE_MOVIE_STATUS, NODE_STATUS_PENDING)
+                        .get()
+                )
+
+                getMoviesFromTask(task)
+            } catch (e: Exception) {
+                Result.Error(e)
+            }
+        }
+    }
+
 
     override suspend fun downloadMovieToLocalFile(video_ref : String): Result<String> {
         //  Timber.i("downloadUri : ${downloadUrl.toString()}")

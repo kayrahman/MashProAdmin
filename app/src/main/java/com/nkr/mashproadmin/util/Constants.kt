@@ -12,6 +12,11 @@ const val NODE_MOVIE_TITLE = "movie_title"
 const val NODE_MOVIE_TAG = "tag"
 const val NODE_MOVIE_TYPE = "type"
 const val NODE_MOVIE_CREATOR = "creator"
+
+const val NODE_MOVIE_STATUS = "status"
+const val NODE_STATUS_PENDING = "pending"
+const val NODE_MOVIE_CONFIRMED = "confirmed"
+
 const val NODE_MOVIE_TYPE_NEW = "New"
 const val NODE_MOVIE_TYPE_SLIDE = "Slide"
 

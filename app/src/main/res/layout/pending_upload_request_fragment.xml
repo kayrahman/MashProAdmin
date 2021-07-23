@@ -5,21 +5,27 @@
     xmlns:bind="http://schemas.android.com/tools"
     tools:context=".ui.uploadRequest.PendingUploadRequestFragment">
 
+   <data>
+      <variable
+          name="viewModel"
+          type="com.nkr.mashproadmin.ui.uploadRequest.PendingUploadRequestViewModel" />
+   </data>
+
+
    <androidx.constraintlayout.widget.ConstraintLayout
        android:layout_height="match_parent"
        android:layout_width="match_parent"
        >
 
       <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/rv_slide_movies"
+          android:id="@+id/rv_pending_movies"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_margin="@dimen/spaceSmall"
           android:overScrollMode="never"
-          app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-          app:spanCount="3"
+          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
           android:nestedScrollingEnabled="false"
-          bind:listitem="@layout/item_list_movie"
+          bind:listitem="@layout/item_list_upload_request"
           app:layout_constraintBottom_toBottomOf="parent"
           >
 
