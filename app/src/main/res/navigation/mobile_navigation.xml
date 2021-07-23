@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.nkr.mashpro.ui.home.HomeFragment"
+        android:name="com.nkr.mashproadmin.ui.home.HomeFragment"
         android:label="@string/movies"
         tools:layout="@layout/fragment_home" >
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.nkr.mashpro.ui.account.AccountFragment"
+        android:name="com.nkr.mashproadmin.ui.account.AccountFragment"
         android:label="@string/title_account"
         tools:layout="@layout/fragment_dashboard" >
         <action
@@ -33,12 +33,12 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.nkr.mashpro.ui.notifications.NotificationsFragment"
+        android:name="com.nkr.mashproadmin.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/moviePlayerFragment"
-        android:name="com.nkr.mashpro.ui.moviePlayer.MoviePlayerFragment"
+        android:name="com.nkr.mashproadmin.ui.moviePlayer.MoviePlayerFragment"
         android:label="movie_player_fragment"
         tools:layout="@layout/movie_player_fragment" >
         <argument
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/authenticationFragment"
-        android:name="com.nkr.mashpro.ui.authentication.AuthenticationFragment"
+        android:name="com.nkr.mashproadmin.ui.authentication.AuthenticationFragment"
         android:label="AuthenticationFragment" >
         <action
             android:id="@+id/action_authenticationFragment_to_navigation_home"
@@ -61,11 +61,11 @@
     </fragment>
     <fragment
         android:id="@+id/uploadFragment"
-        android:name="com.nkr.mashpro.ui.upload.UploadFragment"
+        android:name="com.nkr.mashproadmin.ui.upload.UploadFragment"
         android:label="Upload" />
     <fragment
         android:id="@+id/downloadsFragment"
-        android:name="com.nkr.mashpro.ui.downloads.DownloadsFragment"
+        android:name="com.nkr.mashproadmin.ui.downloads.DownloadsFragment"
         android:label="Downloads"
         tools:layout="@layout/downloads_fragment" >
         <action
@@ -74,7 +74,7 @@
     </fragment>
     <fragment
         android:id="@+id/userTypeFragment"
-        android:name="com.nkr.mashpro.ui.userCredential.UserSubscriptionPlanFragment"
+        android:name="com.nkr.mashproadmin.ui.userCredential.UserSubscriptionPlanFragment"
         android:label="user_type_fragment"
         tools:layout="@layout/user_type_fragment" >
         <action
@@ -83,11 +83,11 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.nkr.mashpro.ui.search.SearchFragment"
+        android:name="com.nkr.mashproadmin.ui.search.SearchFragment"
         android:label="Search" />
     <fragment
         android:id="@+id/userTypeFragment2"
-        android:name="com.nkr.mashpro.ui.userCredential.UserTypeFragment"
+        android:name="com.nkr.mashproadmin.ui.userCredential.UserTypeFragment"
         android:label="fragment_user_type"
         tools:layout="@layout/fragment_user_type" >
         <action

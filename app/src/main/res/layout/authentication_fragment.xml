@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.nkr.mashpro.ui.authentication.AuthenticationViewModel" />
+            type="com.nkr.mashproadmin.ui.authentication.AuthenticationViewModel" />
     </data>
 
     <FrameLayout

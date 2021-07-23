@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="com.nkr.mashpro.ui.moviePlayer.MoviePlayerViewModel" />
+            type="com.nkr.mashproadmin.ui.moviePlayer.MoviePlayerViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -28,6 +28,8 @@
     <string name="viewer">Viewer</string>
     <string name="label_new_movies">New Movies</string>
     <string name="label_slide_movies">Slide Movies</string>
+    <string name="btn_accept">Accept</string>
+    <string name="btn_reject">Reject</string>
 
 
 </resources>

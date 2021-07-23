@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.nkr.mashpro.ui.home.HomeViewModel" />
+            type="com.nkr.mashproadmin.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -9,7 +9,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.nkr.mashpro.ui.upload.UploadViewModel" />
+            type="com.nkr.mashproadmin.ui.upload.UploadViewModel" />
     </data>
 
     <ScrollView

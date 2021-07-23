@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.nkr.mashpro.ui.userCredential.UserSubscriptionPlanViewModel" />
+            type="com.nkr.mashproadmin.ui.userCredential.UserSubscriptionPlanViewModel" />
     </data>
 
 

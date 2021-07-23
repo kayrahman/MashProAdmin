@@ -9,7 +9,7 @@
         <import type="android.view.View" />
         <variable
             name="viewModel"
-            type="com.nkr.mashpro.ui.search.SearchViewModel" />
+            type="com.nkr.mashproadmin.ui.search.SearchViewModel" />
     </data>
 
     <LinearLayout

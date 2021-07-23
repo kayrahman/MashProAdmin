@@ -7,7 +7,7 @@
 
         <variable
             name="listingViewModel"
-            type="com.nkr.mashpro.model.Keyword" />
+            type="com.nkr.mashproadmin.model.Keyword" />
     </data>
 
     <LinearLayout
