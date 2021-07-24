@@ -27,6 +27,8 @@ interface IRepoDataSource {
     suspend fun fetchSlideMoviesFromRemote():Result<List<Movie>>
     suspend fun fetchOwnMoviesFromRemote():Result<List<Movie>>
 
+    suspend fun updateMovieStatusInRemote(movie_uid:String,status:String):Result<Unit>
+
     suspend fun fetchPendingMoviesFromRemote():Result<List<Movie>>
     suspend fun downloadMovieFromRemote(movie : Movie) : Result<Unit>
 

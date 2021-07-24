@@ -14,6 +14,8 @@ import com.nkr.mashproadmin.base.BaseViewModel
 import com.nkr.mashproadmin.databinding.PendingUploadRequestFragmentBinding
 import com.nkr.mashproadmin.ui.downloads.DownloadedMovieListAdapter
 import com.nkr.mashproadmin.ui.downloads.DownloadsFragmentDirections
+import com.nkr.mashproadmin.util.KEY_ACCEPT
+import com.nkr.mashproadmin.util.KEY_REJECT
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -52,13 +54,23 @@ class PendingUploadRequestFragment : BaseFragment() {
             adapter.submitList(it)
         })
 
-        adapter.listener = PendingMovieListAdapter.MovieItemClickListener{
+        val status_listener = { movie_uid:String ,status:Int ->
+            when(status){
+                KEY_ACCEPT -> {
+                    viewModel.handleEvent(UploadRequestEvent.OnAcceptPendingVideos(movie_uid))
+                }
+                KEY_REJECT -> {
+                    viewModel.handleEvent(UploadRequestEvent.OnRejectPendingVideos(movie_uid))
+                }
+            }
+        }
+
+        adapter.listener = PendingMovieListAdapter.MovieItemClickListener({
             // go to movie player
           //  val actionMoviePlayer = DownloadsFragmentDirections.actionDownloadsFragmentToMoviePlayerFragment(it)
           //  viewModel.navigationCommand.value = NavigationCommand.To(actionMoviePlayer)
-        }
+        },status_listener)
 
     }
     }
 
-}

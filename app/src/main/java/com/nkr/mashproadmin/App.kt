@@ -15,6 +15,8 @@ import com.nkr.mashproadmin.ui.home.HomeViewModel
 import com.nkr.mashproadmin.ui.moviePlayer.MoviePlayerViewModel
 import com.nkr.mashproadmin.ui.search.SearchViewModel
 import com.nkr.mashproadmin.ui.upload.UploadViewModel
+import com.nkr.mashproadmin.ui.uploadRequest.PendingUploadRequestFragment
+import com.nkr.mashproadmin.ui.uploadRequest.PendingUploadRequestViewModel
 import com.nkr.mashproadmin.ui.userCredential.UserSubscriptionPlanViewModel
 import com.nkr.mashproadmin.util.SharedPrefsHelper
 import org.koin.android.ext.koin.androidContext
@@ -97,6 +99,14 @@ class App : Application() {
                     get() as IRepoDataSource
                 )
             }
+
+            viewModel {
+                PendingUploadRequestViewModel(
+                    this@App,
+                    get() as IRepoDataSource
+                )
+            }
+
 
 
 

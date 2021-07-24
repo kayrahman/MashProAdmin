@@ -360,6 +360,24 @@ class RemoteDataSourceImpl(
         }
     }
 
+    override suspend fun updateMovieStatus(movie_uid:String,status: String): Result<Unit> {
+        val status_map = HashMap<String, Any>()
+        status_map["status"] = status
+
+        return withContext(Dispatchers.IO) {
+            try {
+                awaitTaskCompletable(
+                    remote.collection(COLLECTION_MOVIES)
+                        .document(movie_uid)
+                        .update(status_map)
+                )
+                Result.Success(Unit)
+            } catch (e: Exception) {
+                Result.Error(e)
+            }
+        }
+    }
+
 
     override suspend fun downloadMovieToLocalFile(video_ref : String): Result<String> {
         //  Timber.i("downloadUri : ${downloadUrl.toString()}")

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
@@ -58,6 +59,14 @@ class AuthenticationFragment : BaseFragment() {
                 }
             }
         })
+
+        viewModel.userValidated.observe(viewLifecycleOwner, Observer {
+            if(it){
+                findNavController().navigate(R.id.action_authenticationFragment2_to_pendingUploadRequestFragment)
+            }
+        })
+
+
 
     }
 

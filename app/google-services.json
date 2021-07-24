@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "279154747204",
+    "firebase_url": "https://mashpro-e4cc0-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "mashpro-e4cc0",
     "storage_bucket": "mashpro-e4cc0.appspot.com"
   },
@@ -13,6 +14,59 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "279154747204-3e2lcigdvpe2kt0rbsg90eb9b3b0fbk1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nkr.mashpro",
+            "certificate_hash": "6775c37a83c3f5c7ef38c9b11e2ccec26d85ef38"
+          }
+        },
+        {
+          "client_id": "279154747204-58epj10u0fuagdt1vubf02c3tf7bs14c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nkr.mashpro",
+            "certificate_hash": "1b2d3f87982ff45aea3d5b90c5252bd2075187e9"
+          }
+        },
+        {
+          "client_id": "279154747204-v8f9rhs4vf45rej9bsi4b7bvrouu0ugl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXpmiaF-yOGCuamCs3U9skgeqUTQbAig4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "279154747204-v8f9rhs4vf45rej9bsi4b7bvrouu0ugl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:279154747204:android:1250c8c5770f8fd9c49911",
+        "android_client_info": {
+          "package_name": "com.nkr.mashproadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "279154747204-tdt61gd31n24afugq5o5leed87tmst2q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nkr.mashproadmin",
+            "certificate_hash": "1b2d3f87982ff45aea3d5b90c5252bd2075187e9"
+          }
+        },
         {
           "client_id": "279154747204-v8f9rhs4vf45rej9bsi4b7bvrouu0ugl.apps.googleusercontent.com",
           "client_type": 3

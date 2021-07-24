@@ -10,6 +10,8 @@ import com.nkr.mashproadmin.R
 import com.nkr.mashproadmin.databinding.ItemListLocalMovieBinding
 import com.nkr.mashproadmin.databinding.ItemListUploadRequestBinding
 import com.nkr.mashproadmin.model.Movie
+import com.nkr.mashproadmin.util.KEY_ACCEPT
+import com.nkr.mashproadmin.util.KEY_REJECT
 
 class PendingMovieListAdapter : ListAdapter<Movie,PendingMovieListAdapter.PendingMovieItemViewHolder>(DiffCallBack())  {
 
@@ -27,6 +29,14 @@ class PendingMovieListAdapter : ListAdapter<Movie,PendingMovieListAdapter.Pendin
 
         holder.binding.ivThumbnail.setOnClickListener {
             listener.onMovieItemClicked(movie)
+        }
+
+        holder.binding.btnAccept.setOnClickListener {
+            listener.onStatusBtnClick(movie.uid,KEY_ACCEPT)
+        }
+
+        holder.binding.btnReject.setOnClickListener {
+            listener.onStatusBtnClick(movie.uid,KEY_REJECT)
         }
 
     }
@@ -52,8 +62,9 @@ class PendingMovieListAdapter : ListAdapter<Movie,PendingMovieListAdapter.Pendin
 
 
     lateinit var  listener : MovieItemClickListener
-    class MovieItemClickListener(val listener: (Movie) -> Unit) {
+    class MovieItemClickListener(val listener: (Movie) -> Unit, val status_listener : (String,Int) -> Unit) {
         fun onMovieItemClicked(movie : Movie) = listener(movie)
+        fun onStatusBtnClick(movie_uid:String,status:Int) = status_listener(movie_uid,status)
 
     }
 

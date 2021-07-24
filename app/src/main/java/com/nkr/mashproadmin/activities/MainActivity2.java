@@ -51,44 +51,7 @@ public class MainActivity2 extends AppCompatActivity implements NavController.On
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
 
         NavController navController = navHostFragment.getNavController();
-        viewModel.getValue().getUserType().observe(this, user_type -> {
-
-            if(FirebaseAuth.getInstance().getCurrentUser() != null) {
-
-                Log.i("user_subscription_type",viewModel.getValue().getUserType().getValue().toString());
-
-                if (user_type == USER_TYPE_CREATOR) {
-                    inflateCreatorNavView(navView,navController);
-
-                } else if (user_type == USER_TYPE_VIEWER) {
-                    inflateNavView(navView,navController);
-
-                } else {
-                    Integer type = sharedPrefsHelper.get(USER_TYPE, 0);
-                    if (type == USER_TYPE_CREATOR) {
-                        inflateCreatorNavView(navView,navController);
-
-                    } else {
-                        inflateNavView(navView,navController);
-                    }
-                }
-
-            }else{
-
-                inflateNavView(navView,navController);
-            }
-        });
-
-
-
-
-
-
-
-
-        //    AppBarConfiguration appBarConfiguration =
-        //          new AppBarConfiguration.Builder(R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications).build();
-
+        inflateCreatorNavView(navView,navController);
 
         navController.addOnDestinationChangedListener(
                 this
@@ -106,14 +69,6 @@ public class MainActivity2 extends AppCompatActivity implements NavController.On
                 navView, navController);
     }
 
-    private void inflateNavView(BottomNavigationView navView,NavController navController){
-        Log.i("user_type","user_type : viewer");
-        navView.getMenu().clear();
-        navView.inflateMenu(R.menu.bottom_nav_menu);
-        navController.setGraph(R.navigation.mobile_navigation);
-        NavigationUI.setupWithNavController(
-                navView, navController);
-    }
 
     @Override
     public void onDestinationChanged(@NonNull @NotNull NavController controller,
@@ -121,7 +76,7 @@ public class MainActivity2 extends AppCompatActivity implements NavController.On
                                      @Nullable @org.jetbrains.annotations.Nullable Bundle arguments) {
 
 
-        if (destination.getId() == R.id.authenticationFragment || destination.getId() == R.id.userTypeFragment2) {
+        if (destination.getId() == R.id.authenticationFragment2 || destination.getId() == R.id.userTypeFragment2) {
             Objects.requireNonNull(getSupportActionBar()).hide();
             binding.navView.setVisibility(View.GONE);
         } else {

@@ -59,6 +59,13 @@ class MashProRepository(
         return remote.fetchOwnUploadedMovies()
     }
 
+    override suspend fun updateMovieStatusInRemote(
+        movie_uid: String,
+        status: String
+    ): Result<Unit> {
+       return remote.updateMovieStatus(movie_uid,status)
+    }
+
     override suspend fun fetchPendingMoviesFromRemote(): Result<List<Movie>> {
         return remote.fetchPendingMovies()
     }

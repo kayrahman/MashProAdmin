@@ -35,6 +35,7 @@ interface IRemoteDataSource {
     suspend fun fetchSlideMovies():Result<List<Movie>>
     suspend fun fetchOwnUploadedMovies():Result<List<Movie>>
     suspend fun fetchPendingMovies():Result<List<Movie>>
+    suspend fun updateMovieStatus(movie_uid:String,status : String):Result<Unit>
     suspend fun downloadMovieToLocalFile(movie : String) : Result<String>
 
     //search

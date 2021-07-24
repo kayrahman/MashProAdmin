@@ -1,9 +1,12 @@
 package com.nkr.mashproadmin.ui.authentication
 
 import android.app.Application
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavDirections
 import com.nkr.bazaranocustomer.base.NavigationCommand
+import com.nkr.mashproadmin.R
 import com.nkr.mashproadmin.base.BaseViewModel
 import com.nkr.mashproadmin.repo.IRepoDataSource
 import kotlinx.coroutines.launch
@@ -12,6 +15,7 @@ import com.nkr.mashproadmin.repo.Result
 
 class AuthenticationViewModel(app:Application,val repo:IRepoDataSource) : BaseViewModel(app) {
 
+    val userValidated = MutableLiveData<Boolean>(false)
 
     fun checkIfUserExistsInRemote() = viewModelScope.launch {
         // If it's user's first time then create an entry of user into the firestore db.
@@ -28,23 +32,8 @@ class AuthenticationViewModel(app:Application,val repo:IRepoDataSource) : BaseVi
                     is Result.Success -> {
                         showLoading.value = false
                         val user = user_response.data
+                        userValidated.value = true
 
-                        if(user.user_type != 0) {
-                            if (user.subscription_plan.isNotEmpty()) {
-                                val actionHome =
-                                    AuthenticationFragmentDirections.actionAuthenticationFragmentToNavigationHome()
-                                navigationCommand.value = NavigationCommand.To(actionHome)
-
-                            } else {
-                                val actionChoosePlan =
-                                    AuthenticationFragmentDirections.actionAuthenticationFragmentToUserTypeFragment()
-                                navigationCommand.value = NavigationCommand.To(actionChoosePlan)
-                            }
-
-                        }else{
-                            val actionUsertype = AuthenticationFragmentDirections.actionAuthenticationFragmentToUserTypeFragment2()
-                            navigationCommand.value = NavigationCommand.To(actionUsertype)
-                        }
                     }
 
                     is Result.Error ->{

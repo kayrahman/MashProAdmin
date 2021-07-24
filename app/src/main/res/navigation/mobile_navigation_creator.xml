@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation_creator"
-    app:startDestination="@+id/uploadFragment">
+    app:startDestination="@+id/authenticationFragment2">
 
 
     <fragment
@@ -18,7 +18,7 @@
         tools:layout="@layout/movie_player_fragment" >
         <argument
             android:name="movie"
-            app:argType="com.nkr.mashpro.model.Movie" />
+            app:argType="com.nkr.mashproadmin.model.Movie" />
     </fragment>
     <fragment
         android:id="@+id/creatorAccountFragment"
@@ -27,5 +27,18 @@
         <action
             android:id="@+id/action_creatorAccountFragment_to_moviePlayerFragment2"
             app:destination="@id/moviePlayerFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/pendingUploadRequestFragment"
+        android:name="com.nkr.mashproadmin.ui.uploadRequest.PendingUploadRequestFragment"
+        android:label="pending_upload_request_fragment"
+        tools:layout="@layout/pending_upload_request_fragment" />
+    <fragment
+        android:id="@+id/authenticationFragment2"
+        android:name="com.nkr.mashproadmin.ui.authentication.AuthenticationFragment"
+        android:label="AuthenticationFragment" >
+        <action
+            android:id="@+id/action_authenticationFragment2_to_pendingUploadRequestFragment"
+            app:destination="@id/pendingUploadRequestFragment" />
     </fragment>
 </navigation>

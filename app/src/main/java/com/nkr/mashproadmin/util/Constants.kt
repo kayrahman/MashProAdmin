@@ -16,6 +16,7 @@ const val NODE_MOVIE_CREATOR = "creator"
 const val NODE_MOVIE_STATUS = "status"
 const val NODE_STATUS_PENDING = "pending"
 const val NODE_MOVIE_CONFIRMED = "confirmed"
+const val NODE_MOVIE_REJECTED = "rejected"
 
 const val NODE_MOVIE_TYPE_NEW = "New"
 const val NODE_MOVIE_TYPE_SLIDE = "Slide"
@@ -29,3 +30,6 @@ const val USER_SUBSCRIPTION_TYPE_FREE = "FREE"
 const val USER_TYPE = "user_type"
 const val USER_TYPE_VIEWER = 801
 const val USER_TYPE_CREATOR = 802
+
+const val KEY_ACCEPT = 901
+const val KEY_REJECT = 902

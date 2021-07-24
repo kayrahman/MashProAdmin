@@ -43,7 +43,7 @@
         tools:layout="@layout/movie_player_fragment" >
         <argument
             android:name="movie"
-            app:argType="com.nkr.mashpro.model.Movie" />
+            app:argType="com.nkr.mashproadmin.model.Movie" />
     </fragment>
     <fragment
         android:id="@+id/authenticationFragment"
